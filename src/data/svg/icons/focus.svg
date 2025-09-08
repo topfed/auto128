@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 167.3 142">
+  <defs>
+    <style>
+      .cls-2,.cls-4{fill:none}.cls-2,.cls-4,.cls-5{stroke-linejoin:round}.cls-5{stroke-width:6px}.cls-4{stroke:#b10216}.cls-2,.cls-5{stroke:#303a44;stroke-linecap:round}.cls-2,.cls-4{stroke-width:4px}.cls-5{fill:#303a44}
+    </style>
+  </defs>
+  <path d="M94.7 34.3h67.6V137H5V34.3h67.7" class="cls-4"/>
+  <path d="M30.4 122c-6.3 0-8.7-4.6-8.7-4.6v-7.2c0-6.2 5-11.3 11.2-11.3l7.9-.8c0 5.8 10.4 9.4 10.4 9.4s10.4-3.6 10.4-9.4l7.9.8c6.2 0 11.2 5 11.2 11.3v7.2s-1.8 4.5-8.7 4.5H30.4Z" style="stroke:#b10216;stroke-width:6px;stroke-linejoin:round;fill:none"/>
+  <path d="M93.3 56.1h35M93.3 76.1h55.4M93.3 96.1h35M93.3 116.1h55.4" class="cls-4"/>
+  <path d="M38.5 61.7v15.7a12.7 12.7 0 1 0 25.3 0V61.7H38.5Z" style="stroke:#303a44;stroke-linecap:round;stroke-width:6px;stroke-linejoin:round;fill:none"/>
+  <path d="M68.5 67.8s-27.9-1-24.4-9.8c2.7-6.8 10.4-10 17.1-7.3 6.8 2.7 8.9 13.1 7.3 17Z" class="cls-5"/>
+  <path d="M37.8 67S57 57 51.5 52a10.2 10.2 0 0 0-14.4.5c-3.8 4.1-1.8 12.1.5 14.4Z" class="cls-5"/>
+  <path d="M72.7 5h22v37.3h-22zM60.3 29h12.4M94.7 29H107" class="cls-2"/>
+</svg>

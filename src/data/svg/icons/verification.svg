@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 166.7 127.4">
+  <defs>
+    <style>
+      .cls-3{fill:#303a44;stroke-width:0}
+    </style>
+  </defs>
+  <path d="M35.7 38v72c0 9.6 21.3 17.4 47.6 17.4S131 119.6 131 110V38H35.7Z" class="cls-3"/>
+  <circle cx="159.7" cy="82.7" r="6.7" class="cls-3"/>
+  <circle cx="159.7" cy="73.5" r="6.9" class="cls-3"/>
+  <path d="M153 82.7h13.3v16.2H153z" class="cls-3"/>
+  <path d="M159.7 38v44.7" style="stroke:#303a44;stroke-miterlimit:4;stroke-width:6px;fill:none"/>
+  <path d="M83.3 69.1 7 38 83.3 7l76.4 31-76.4 31.1z" style="fill:#fff;stroke-width:0"/>
+  <path d="M83.3 69.1 7 38 83.3 7l76.4 31-76.4 31.1z" style="fill:none;stroke:#b10216;stroke-linejoin:round;stroke-width:4px"/>
+</svg>

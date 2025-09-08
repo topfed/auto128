@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 157.7 157.7">
+  <defs>
+    <style>
+      .cls-1{stroke:#fff;stroke-miterlimit:4;fill:none;stroke-width:4px}.cls-3{fill:#303a44;stroke-width:0}
+    </style>
+  </defs>
+  <path d="M45.8 8.2h66.3v10H45.8zM45.8 139.5h66.3v10H45.8z" class="cls-3"/>
+  <circle cx="45.8" cy="13.2" r="5" class="cls-3"/>
+  <circle cx="13.2" cy="45.8" r="5" class="cls-3"/>
+  <path d="M50.8 15.9 16.7 49.3l-7.1-7.1L42.2 9.6l8.6 6.3z" class="cls-3"/>
+  <circle cx="111.9" cy="13.2" r="5" class="cls-3"/>
+  <circle cx="144.5" cy="45.8" r="5" class="cls-3"/>
+  <path d="M106.9 15.9 141 49.3l7.1-7.1-32.6-32.6-8.6 6.3z" class="cls-3"/>
+  <path d="M139.5 45.8h10v66.3h-10z" class="cls-3"/>
+  <circle cx="144.5" cy="111.9" r="5" class="cls-3"/>
+  <circle cx="111.9" cy="144.5" r="5" class="cls-3"/>
+  <path d="M141.8 106.9 108.4 141l7.1 7.1 32.6-32.6-6.3-8.6zM8.2 45.8h10v66.3h-10z" class="cls-3"/>
+  <circle cx="13.2" cy="111.9" r="5" class="cls-3"/>
+  <circle cx="45.8" cy="144.5" r="5" class="cls-3"/>
+  <path d="M15.9 106.9 49.3 141l-7.1 7.1-32.6-32.6 6.3-8.6z" class="cls-3"/>
+  <path d="M45.8 13.2 13.2 45.8v64.9l33.2 33.2H112l32.2-32.2V45.8l-32.9-32.9-65.5.3z" class="cls-3"/>
+  <path d="M117.3 107V53h8.3c4.5 0 8.2 3.7 8.2 8.3v8.2c0 2.1-.8 4.2-2.4 5.8a9 9 0 0 1-5.9 2.5h-8.2M85.9 94.2a8.2 8.2 0 0 0 14 5.9 8.2 8.2 0 0 0 2.4-5.9v-33a8.2 8.2 0 0 0-16.4 0v33ZM50.5 53h25M63 53v54M41 69.5v-8.2a8.2 8.2 0 0 0-16.5 0v8.2c0 2.1.8 4.2 2.4 5.8a9 9 0 0 0 5.9 2.5c4.5 0 8.2 3.7 8.2 8.2v8.2a8.2 8.2 0 0 1-14 5.9 8.2 8.2 0 0 1-2.5-5.9V86" class="cls-1"/>
+  <path d="M5 41.6 41.6 5h74.5l36.6 36.6v74.5l-36.6 36.6H41.6L5 116.1V41.6z" style="stroke:#b10216;stroke-linejoin:round;fill:none;stroke-width:4px"/>
+</svg>

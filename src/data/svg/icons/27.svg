@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 148 169.3">
+  <defs>
+    <style>
+      .cls-1{fill:#303a44}.cls-1,.cls-2{stroke:#303a44;stroke-linecap:round}.cls-1,.cls-2,.cls-3{stroke-linejoin:round}.cls-1,.cls-3{stroke-width:4px}.cls-2{stroke-width:4px;fill:none}.cls-3{fill:none;stroke:#b10216}
+    </style>
+  </defs>
+  <circle cx="74" cy="95.3" r="69" class="cls-3"/>
+  <path d="M74 54.3V40.8a54.5 54.5 0 0 1 54.5 54.5H115" class="cls-3"/>
+  <path d="M59.7 5h28.5v7.5H59.7z" class="cls-1"/>
+  <path d="M48.5 69.8 74 95.3M74 95.3l36.8-36.8" class="cls-2"/>
+  <path d="M74 136.4v17.9M33 95.3H15" class="cls-3"/>
+  <path d="m126.7 30.7 3.2-3.2 12 12-3.3 3.2z" class="cls-1"/>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 130 151">
+  <defs>
+    <style>
+      .cls-1{fill:none;stroke:#b10216;stroke-linejoin:round;stroke-width:4px}
+    </style>
+  </defs>
+  <path d="M5 38h87v108H5z" class="cls-1"/>
+  <path d="M21 30.3V22h87v108h-8" class="cls-1"/>
+  <path d="M38 13.8V5h87v108h-8.5M17.3 63.8h62M17.3 83.8h62M17.3 103.8h62M17.3 123.8h62" class="cls-1"/>
+</svg>

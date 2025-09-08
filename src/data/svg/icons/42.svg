@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 160 160">
+  <defs>
+    <style>
+      .cls-1{fill:none;stroke:#b10216;stroke-miterlimit:4;stroke-width:4px}.cls-3{stroke-width:0;fill:#fff}
+    </style>
+  </defs>
+  <path d="M106 153h25.2c2.5 0 4.8-.4 7-1.1" class="cls-1"/>
+  <rect width="122.5" height="122.5" x="18.8" y="18.8" rx="10" ry="10" style="stroke-width:0;fill:#303a44"/>
+  <path d="M149.2 143.5c2.4-3.5 3.8-7.7 3.8-12.3M153 95.9V28.8c0-12-9.8-21.8-21.8-21.8H28.8C16.8 7 7 16.7 7 28.8v102.4c0 12 9.7 21.8 21.8 21.8H99" class="cls-1"/>
+  <path d="M41 66.3h16.6v51.5H41zM99.5 65c-8.2 0-13.2 4.4-15.5 7.1v-5.8H67.5V118H84V84.2c1.5-3 4-6.4 8.8-6.4 8.9 0 8.9 8.3 8.9 8.3v31.8H119V84.5c0-12.6-7.5-19.5-19.5-19.5Z" class="cls-3"/>
+  <circle cx="49.3" cy="50" r="8.3" class="cls-3" transform="rotate(-45 49.3 50)"/>
+</svg>

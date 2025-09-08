@@ -1,0 +1,8 @@
+[functions]
+  directory = "src/api"
+
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon-32x32.png"
+  status = 301
+  force = true

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 139.1">
+  <defs>
+    <style>
+      .cls-1,.cls-2{stroke-width:4px}.cls-1{fill:#303a44;stroke:#303a44;stroke-linecap:round;stroke-linejoin:round}.cls-2{fill:none;stroke:#ec2129;stroke-miterlimit:4}
+    </style>
+  </defs>
+  <path d="M15.5 52.4h10v42h-10" class="cls-2"/>
+  <path d="M7 111.8h130v15.9H7zM137 35.9H7V27L72 7l65 20v8.9z" class="cls-1"/>
+  <path d="M128 52.4h-10v42h10M118 45.4v56M88 45.4v56M55.5 45.4v56" class="cls-2"/>
+  <circle cx="72" cy="23.4" r="9.2" style="fill:#fff;stroke-width:0"/>
+  <path d="M41 123.2h61.5M25.5 132.1H118" class="cls-2"/>
+</svg>

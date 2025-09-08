@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 141.6 159.5">
+  <defs>
+    <style>
+      .cls-1,.cls-2{stroke:#fff;fill:none;stroke-miterlimit:4;stroke-width:4px}.cls-2{stroke:#b10216}.cls-3{fill:#303a44;stroke-width:0}
+    </style>
+  </defs>
+  <path d="M15.1 90.9 69 37.1M22.2 108.9 69 62M31.3 124.7l37.1-37.1M46.5 134.5 71 110M133.7 47.3 97.4 11M132.8 71.4 74.7 13.3M127.3 90.9 73.5 37.1" class="cls-2"/>
+  <path d="m76 152.9-6.3-1.8A88 88 0 0 1 5.5 70.7l-.2-5.3H76V153ZM16 75.4a78 78 0 0 0 50 64v-64H16Z" class="cls-1"/>
+  <path d="M136.3 75.4H66V5h5c20.6 0 41.3 2 61.6 5.9l4 .7v59.1l-.3 4.8ZM76 65.4h50.6V20A317 317 0 0 0 76 15v50.4Z" class="cls-1"/>
+  <path d="M71 71.4v74.9a83.2 83.2 0 0 0 60.5-74.9H71ZM10.4 14.9 71 10v60.4H10.4V14.9z" class="cls-3"/>
+  <path d="M71 10c-20.7 0-41 2-60.6 5.8v50.4a83.2 83.2 0 0 0 60.6 80c35-9.8 60.6-41.9 60.6-80V15.8A321.1 321.1 0 0 0 71 10ZM71 10v136.3M10.4 70.4h121.2" class="cls-2"/>
+</svg>
