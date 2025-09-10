@@ -2,11 +2,12 @@ import React from "react";
 import { useGlobal } from "../data/useContext";
 import Svg from "./Svg";
 
-const Selection = () => {
+const WhyUs = () => {
   const { settings, context } = useGlobal();
   const options = (settings[context?.type] || [])?.find(
-    (e) => e?.id === "Selection"
+    (e) => e?.id === "WhyUs"
   );
+  console.log(options);
   return (
     <section className="bg-white">
       <div className="container cont-space">
@@ -23,11 +24,7 @@ const Selection = () => {
             return (
               <div className="d-flex items-start" key={i}>
                 <div>
-                  <Svg
-                    name={e?.icon?.src}
-                    width={e?.icon?.width}
-                    height={e?.icon?.height}
-                  />
+                  <Svg name={e?.src} width="40px" height="40px" />
                 </div>
                 <div className="d-flex flex-col pl-3">
                   <h3>{e?.title}</h3>
@@ -42,4 +39,4 @@ const Selection = () => {
   );
 };
 
-export default Selection;
+export default WhyUs;

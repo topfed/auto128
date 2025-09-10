@@ -40,11 +40,11 @@ const Footer = () => {
         </div>
         <div className="col-6 d-flex gap-5">
           <div className="col-12">
-            <div className="uppercase text-white mb-3">
-              {options?.nav1Title}
-            </div>
             <div className="d-flex gap-5">
               <nav className="col-6">
+                <div className="uppercase text-white mb-3">
+                  {options?.nav1Title}
+                </div>
                 <ul>
                   {options?.nav1?.map((e, i) => {
                     return (
@@ -56,6 +56,9 @@ const Footer = () => {
                 </ul>
               </nav>
               <nav className="col-6">
+                <div className="uppercase text-white mb-3">
+                  {options?.nav2Title}
+                </div>
                 <ul>
                   {options?.nav2?.map((e, i) => {
                     return (

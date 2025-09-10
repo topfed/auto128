@@ -21,26 +21,27 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions;
 
-  const places = await db.collection("S_places").get();
-  const placesSort = places?.docs?.map((e) => {
-    const data = e?.data();
-    return {
-      id: e.id,
-      count: data?.places?.length,
-    };
-  });
-  const groupedByCity = placesSort
-    ?.filter((a) => a.count > 9)
-    ?.reduce((acc, item) => {
-      const parts = item.id.split("-");
-      const city = parts.pop();
-      const service = parts.join("-");
-      if (!acc[city]) {
-        acc[city] = [];
-      }
-      acc[city].push(service);
-      return acc;
-    }, {});
+  // const places = await db.collection("S_places").get();
+  // const placesSort = places?.docs?.map((e) => {
+  //   const data = e?.data();
+  //   return {
+  //     id: e.id,
+  //     count: data?.places?.length,
+  //   };
+  // });
+  // const groupedByCity = placesSort
+  //   ?.filter((a) => a.count > 9)
+  //   ?.reduce((acc, item) => {
+  //     const parts = item.id.split("-");
+  //     const city = parts.pop();
+  //     const service = parts.join("-");
+  //     if (!acc[city]) {
+  //       acc[city] = [];
+  //     }
+  //     acc[city].push(service);
+  //     return acc;
+  //   }, {});
+
   const collections = process.env.COLLECTIONS_NODE.split(",");
   for (const collection of collections) {
     try {
@@ -52,7 +53,7 @@ exports.sourceNodes = async ({
       snapshot.forEach((doc) => {
         const data = doc.data();
         if (collection.endsWith("settings") && data.settings) {
-          data.settings.groupedByCity = groupedByCity;
+          // data.settings.groupedByCity = groupedByCity;
           data.settings = JSON.stringify(data.settings);
         }
         createNode({
@@ -61,7 +62,7 @@ exports.sourceNodes = async ({
           parent: null,
           children: [],
           internal: {
-            type: collection.replace("S_", "S"),
+            type: collection.replace("A_", "A"),
             contentDigest: createContentDigest(data),
           },
         });
@@ -79,11 +80,10 @@ exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   const result = await graphql(`
     {
-      allSpages {
+      allApages {
         nodes {
           slug
           type
-          category
         }
       }
     }
@@ -94,106 +94,104 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   const template = path.resolve(`./src/templates/index.js`);
-  const pages = result.data.allSpages.nodes;
-  const keywords = pages?.filter(
-    (e) => e?.type === "keyword" && e?.category !== null
-  );
-  const cities = pages?.filter((e) => e?.type === "city");
-  const categories = pages?.filter((e) => e?.type === "category");
+  const pages = result.data.allApages.nodes;
+  // const keywords = pages?.filter(
+  //   (e) => e?.type === "keyword" && e?.category !== null
+  // );
+  // const cities = pages?.filter((e) => e?.type === "city");
+  // const categories = pages?.filter((e) => e?.type === "category");
 
   pages.forEach((content) => {
     if (content.slug !== "/" && content.slug !== "404") {
-      if (!(content?.type === "keyword" && content?.category === null)) {
-        createPage({
-          path: `/${content.slug}/`,
-          component: template,
-          context: {
-            slug: content.slug,
-            type: content.type,
-          },
-        });
-      }
+      createPage({
+        path: `/${content.slug}/`,
+        component: template,
+        context: {
+          slug: content.slug,
+          type: content.type,
+        },
+      });
     }
   });
 
-  for (const category of categories) {
-    for (const city of cities) {
-      createPage({
-        path: `/${category.slug}/${city.slug}/`,
-        component: template,
-        context: {
-          category: category.slug,
-          city: city.slug,
-          type: "categoryPlace",
-        },
-      });
-    }
-  }
+  // for (const category of categories) {
+  //   for (const city of cities) {
+  //     createPage({
+  //       path: `/${category.slug}/${city.slug}/`,
+  //       component: template,
+  //       context: {
+  //         category: category.slug,
+  //         city: city.slug,
+  //         type: "categoryPlace",
+  //       },
+  //     });
+  //   }
+  // }
 
-  const places = await db.collection("S_places").get();
-  const placesSort = places?.docs
-    ?.map((e, i) => {
-      const data = e?.data();
-      return {
-        id: e.id,
-        count: data?.places?.length,
-        places: data?.places,
-        update: data?.update,
-      };
-    })
-    .sort((a, b) => b.count - a.count);
-  let c = 0;
-  for (const doc of placesSort) {
-    c++;
-    if (doc?.count > 9) {
-      const parts = doc.id.split("-");
-      const city = parts.pop();
-      const service = parts.join("-");
-      createPage({
-        path: `/${service}/${city}/`,
-        component: template,
-        context: {
-          keyword: service,
-          city: city,
-          type: "place",
-          update: doc?.update?.toDate?.().getTime?.(),
-          places:
-            [
-              ...doc?.places?.filter((e) => e?.status === 1),
-              ...doc?.places?.filter((e) => e?.status === 2),
-            ] || [],
-        },
-      });
-    }
-  }
+  // const places = await db.collection("A_places").get();
+  // const placesSort = places?.docs
+  //   ?.map((e, i) => {
+  //     const data = e?.data();
+  //     return {
+  //       id: e.id,
+  //       count: data?.places?.length,
+  //       places: data?.places,
+  //       update: data?.update,
+  //     };
+  //   })
+  //   .sort((a, b) => b.count - a.count);
+  // let c = 0;
+  // for (const doc of placesSort) {
+  //   c++;
+  //   if (doc?.count > 9) {
+  //     const parts = doc.id.split("-");
+  //     const city = parts.pop();
+  //     const service = parts.join("-");
+  //     createPage({
+  //       path: `/${service}/${city}/`,
+  //       component: template,
+  //       context: {
+  //         keyword: service,
+  //         city: city,
+  //         type: "place",
+  //         update: doc?.update?.toDate?.().getTime?.(),
+  //         places:
+  //           [
+  //             ...doc?.places?.filter((e) => e?.status === 1),
+  //             ...doc?.places?.filter((e) => e?.status === 2),
+  //           ] || [],
+  //       },
+  //     });
+  //   }
+  // }
 };
 
-exports.onPostBuild = async ({ graphql }) => {
-  const result = await graphql(`
-    {
-      allSpages {
-        nodes {
-          slug
-          type
-          name
-          category
-        }
-      }
-    }
-  `);
+// exports.onPostBuild = async ({ graphql }) => {
+//   const result = await graphql(`
+//     {
+//       allSpages {
+//         nodes {
+//           slug
+//           type
+//           name
+//           category
+//         }
+//       }
+//     }
+//   `);
 
-  const pages = result.data.allSpages.nodes;
-  const keywords = pages?.filter(
-    (e) => e?.type === "keyword" && e?.category !== null
-  );
+//   const pages = result.data.allSpages.nodes;
+//   const keywords = pages?.filter(
+//     (e) => e?.type === "keyword" && e?.category !== null
+//   );
 
-  const index = keywords?.map((node) => ({
-    name: node.name,
-    slug: node.slug,
-  }));
+//   const index = keywords?.map((node) => ({
+//     name: node.name,
+//     slug: node.slug,
+//   }));
 
-  fs.writeFileSync(
-    path.join(__dirname, "public/search-index.json"),
-    JSON.stringify(index)
-  );
-};
+//   fs.writeFileSync(
+//     path.join(__dirname, "public/search-index.json"),
+//     JSON.stringify(index)
+//   );
+// };

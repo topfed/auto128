@@ -68,7 +68,7 @@ const Hero = () => {
             {context?.places?.length} {optionsPlace?.crumbHero2}
           </p>
         )}
-        {(type === "index" || type === "category" || type === "category") && (
+        {/* {(type === "index" || type === "category" || type === "category") && (
           <div className="d-flex justify-center mt-3">
             <a
               className="btx d-flex justify-center items-center gap-3 rounded-full"
@@ -79,7 +79,7 @@ const Hero = () => {
               {options?.buttonText}
             </a>
           </div>
-        )}
+        )} */}
       </div>
     </section>
   );

@@ -77,7 +77,7 @@ const Seo = ({ data, context }) => {
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+44-20-3807-8434",
-      email: "info@trustvalet.co.uk",
+      email: "info@auto128.uk",
       contactType: "Customer Support",
       areaServed: "GB",
       availableLanguage: ["English"],

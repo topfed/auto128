@@ -29,6 +29,282 @@ type Scalars = {
   JSON: Record<string, unknown>;
 };
 
+type Apages = Node & {
+  readonly children: ReadonlyArray<Node>;
+  readonly content: Maybe<Scalars['String']>;
+  readonly display: Maybe<Scalars['Boolean']>;
+  readonly id: Scalars['ID'];
+  readonly internal: Internal;
+  readonly name: Maybe<Scalars['String']>;
+  readonly parent: Maybe<Node>;
+  readonly s: Maybe<Scalars['Int']>;
+  readonly seoDesc: Maybe<Scalars['String']>;
+  readonly seoTitle: Maybe<Scalars['String']>;
+  readonly shortContent: Maybe<Scalars['String']>;
+  readonly slug: Maybe<Scalars['String']>;
+  readonly title: Maybe<Scalars['String']>;
+  readonly type: Maybe<Scalars['String']>;
+};
+
+type ApagesConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<ApagesEdge>;
+  readonly group: ReadonlyArray<ApagesGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<Apages>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type ApagesConnection_distinctArgs = {
+  field: ApagesFieldSelector;
+};
+
+
+type ApagesConnection_groupArgs = {
+  field: ApagesFieldSelector;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type ApagesConnection_maxArgs = {
+  field: ApagesFieldSelector;
+};
+
+
+type ApagesConnection_minArgs = {
+  field: ApagesFieldSelector;
+};
+
+
+type ApagesConnection_sumArgs = {
+  field: ApagesFieldSelector;
+};
+
+type ApagesEdge = {
+  readonly next: Maybe<Apages>;
+  readonly node: Apages;
+  readonly previous: Maybe<Apages>;
+};
+
+type ApagesFieldSelector = {
+  readonly children: InputMaybe<NodeFieldSelector>;
+  readonly content: InputMaybe<FieldSelectorEnum>;
+  readonly display: InputMaybe<FieldSelectorEnum>;
+  readonly id: InputMaybe<FieldSelectorEnum>;
+  readonly internal: InputMaybe<InternalFieldSelector>;
+  readonly name: InputMaybe<FieldSelectorEnum>;
+  readonly parent: InputMaybe<NodeFieldSelector>;
+  readonly s: InputMaybe<FieldSelectorEnum>;
+  readonly seoDesc: InputMaybe<FieldSelectorEnum>;
+  readonly seoTitle: InputMaybe<FieldSelectorEnum>;
+  readonly shortContent: InputMaybe<FieldSelectorEnum>;
+  readonly slug: InputMaybe<FieldSelectorEnum>;
+  readonly title: InputMaybe<FieldSelectorEnum>;
+  readonly type: InputMaybe<FieldSelectorEnum>;
+};
+
+type ApagesFilterInput = {
+  readonly children: InputMaybe<NodeFilterListInput>;
+  readonly content: InputMaybe<StringQueryOperatorInput>;
+  readonly display: InputMaybe<BooleanQueryOperatorInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly internal: InputMaybe<InternalFilterInput>;
+  readonly name: InputMaybe<StringQueryOperatorInput>;
+  readonly parent: InputMaybe<NodeFilterInput>;
+  readonly s: InputMaybe<IntQueryOperatorInput>;
+  readonly seoDesc: InputMaybe<StringQueryOperatorInput>;
+  readonly seoTitle: InputMaybe<StringQueryOperatorInput>;
+  readonly shortContent: InputMaybe<StringQueryOperatorInput>;
+  readonly slug: InputMaybe<StringQueryOperatorInput>;
+  readonly title: InputMaybe<StringQueryOperatorInput>;
+  readonly type: InputMaybe<StringQueryOperatorInput>;
+};
+
+type ApagesGroupConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<ApagesEdge>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+  readonly group: ReadonlyArray<ApagesGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<Apages>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type ApagesGroupConnection_distinctArgs = {
+  field: ApagesFieldSelector;
+};
+
+
+type ApagesGroupConnection_groupArgs = {
+  field: ApagesFieldSelector;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type ApagesGroupConnection_maxArgs = {
+  field: ApagesFieldSelector;
+};
+
+
+type ApagesGroupConnection_minArgs = {
+  field: ApagesFieldSelector;
+};
+
+
+type ApagesGroupConnection_sumArgs = {
+  field: ApagesFieldSelector;
+};
+
+type ApagesSortInput = {
+  readonly children: InputMaybe<NodeSortInput>;
+  readonly content: InputMaybe<SortOrderEnum>;
+  readonly display: InputMaybe<SortOrderEnum>;
+  readonly id: InputMaybe<SortOrderEnum>;
+  readonly internal: InputMaybe<InternalSortInput>;
+  readonly name: InputMaybe<SortOrderEnum>;
+  readonly parent: InputMaybe<NodeSortInput>;
+  readonly s: InputMaybe<SortOrderEnum>;
+  readonly seoDesc: InputMaybe<SortOrderEnum>;
+  readonly seoTitle: InputMaybe<SortOrderEnum>;
+  readonly shortContent: InputMaybe<SortOrderEnum>;
+  readonly slug: InputMaybe<SortOrderEnum>;
+  readonly title: InputMaybe<SortOrderEnum>;
+  readonly type: InputMaybe<SortOrderEnum>;
+};
+
+type Asettings = Node & {
+  readonly children: ReadonlyArray<Node>;
+  readonly id: Scalars['ID'];
+  readonly internal: Internal;
+  readonly parent: Maybe<Node>;
+  readonly s: Maybe<Scalars['Int']>;
+  readonly settings: Maybe<Scalars['String']>;
+};
+
+type AsettingsConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<AsettingsEdge>;
+  readonly group: ReadonlyArray<AsettingsGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<Asettings>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type AsettingsConnection_distinctArgs = {
+  field: AsettingsFieldSelector;
+};
+
+
+type AsettingsConnection_groupArgs = {
+  field: AsettingsFieldSelector;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type AsettingsConnection_maxArgs = {
+  field: AsettingsFieldSelector;
+};
+
+
+type AsettingsConnection_minArgs = {
+  field: AsettingsFieldSelector;
+};
+
+
+type AsettingsConnection_sumArgs = {
+  field: AsettingsFieldSelector;
+};
+
+type AsettingsEdge = {
+  readonly next: Maybe<Asettings>;
+  readonly node: Asettings;
+  readonly previous: Maybe<Asettings>;
+};
+
+type AsettingsFieldSelector = {
+  readonly children: InputMaybe<NodeFieldSelector>;
+  readonly id: InputMaybe<FieldSelectorEnum>;
+  readonly internal: InputMaybe<InternalFieldSelector>;
+  readonly parent: InputMaybe<NodeFieldSelector>;
+  readonly s: InputMaybe<FieldSelectorEnum>;
+  readonly settings: InputMaybe<FieldSelectorEnum>;
+};
+
+type AsettingsFilterInput = {
+  readonly children: InputMaybe<NodeFilterListInput>;
+  readonly id: InputMaybe<StringQueryOperatorInput>;
+  readonly internal: InputMaybe<InternalFilterInput>;
+  readonly parent: InputMaybe<NodeFilterInput>;
+  readonly s: InputMaybe<IntQueryOperatorInput>;
+  readonly settings: InputMaybe<StringQueryOperatorInput>;
+};
+
+type AsettingsGroupConnection = {
+  readonly distinct: ReadonlyArray<Scalars['String']>;
+  readonly edges: ReadonlyArray<AsettingsEdge>;
+  readonly field: Scalars['String'];
+  readonly fieldValue: Maybe<Scalars['String']>;
+  readonly group: ReadonlyArray<AsettingsGroupConnection>;
+  readonly max: Maybe<Scalars['Float']>;
+  readonly min: Maybe<Scalars['Float']>;
+  readonly nodes: ReadonlyArray<Asettings>;
+  readonly pageInfo: PageInfo;
+  readonly sum: Maybe<Scalars['Float']>;
+  readonly totalCount: Scalars['Int'];
+};
+
+
+type AsettingsGroupConnection_distinctArgs = {
+  field: AsettingsFieldSelector;
+};
+
+
+type AsettingsGroupConnection_groupArgs = {
+  field: AsettingsFieldSelector;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+};
+
+
+type AsettingsGroupConnection_maxArgs = {
+  field: AsettingsFieldSelector;
+};
+
+
+type AsettingsGroupConnection_minArgs = {
+  field: AsettingsFieldSelector;
+};
+
+
+type AsettingsGroupConnection_sumArgs = {
+  field: AsettingsFieldSelector;
+};
+
+type AsettingsSortInput = {
+  readonly children: InputMaybe<NodeSortInput>;
+  readonly id: InputMaybe<SortOrderEnum>;
+  readonly internal: InputMaybe<InternalSortInput>;
+  readonly parent: InputMaybe<NodeSortInput>;
+  readonly s: InputMaybe<SortOrderEnum>;
+  readonly settings: InputMaybe<SortOrderEnum>;
+};
+
 type BooleanQueryOperatorInput = {
   readonly eq: InputMaybe<Scalars['Boolean']>;
   readonly in: InputMaybe<ReadonlyArray<InputMaybe<Scalars['Boolean']>>>;
@@ -765,6 +1041,8 @@ type PageInfo = {
 };
 
 type Query = {
+  readonly allApages: ApagesConnection;
+  readonly allAsettings: AsettingsConnection;
   readonly allDirectory: DirectoryConnection;
   readonly allFile: FileConnection;
   readonly allSite: SiteConnection;
@@ -772,8 +1050,8 @@ type Query = {
   readonly allSiteFunction: SiteFunctionConnection;
   readonly allSitePage: SitePageConnection;
   readonly allSitePlugin: SitePluginConnection;
-  readonly allSpages: SpagesConnection;
-  readonly allSsettings: SsettingsConnection;
+  readonly apages: Maybe<Apages>;
+  readonly asettings: Maybe<Asettings>;
   readonly directory: Maybe<Directory>;
   readonly file: Maybe<File>;
   readonly site: Maybe<Site>;
@@ -781,8 +1059,22 @@ type Query = {
   readonly siteFunction: Maybe<SiteFunction>;
   readonly sitePage: Maybe<SitePage>;
   readonly sitePlugin: Maybe<SitePlugin>;
-  readonly spages: Maybe<Spages>;
-  readonly ssettings: Maybe<Ssettings>;
+};
+
+
+type Query_allApagesArgs = {
+  filter: InputMaybe<ApagesFilterInput>;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<ApagesSortInput>>>;
+};
+
+
+type Query_allAsettingsArgs = {
+  filter: InputMaybe<AsettingsFilterInput>;
+  limit: InputMaybe<Scalars['Int']>;
+  skip: InputMaybe<Scalars['Int']>;
+  sort: InputMaybe<ReadonlyArray<InputMaybe<AsettingsSortInput>>>;
 };
 
 
@@ -842,19 +1134,31 @@ type Query_allSitePluginArgs = {
 };
 
 
-type Query_allSpagesArgs = {
-  filter: InputMaybe<SpagesFilterInput>;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<SpagesSortInput>>>;
+type Query_apagesArgs = {
+  children: InputMaybe<NodeFilterListInput>;
+  content: InputMaybe<StringQueryOperatorInput>;
+  display: InputMaybe<BooleanQueryOperatorInput>;
+  id: InputMaybe<StringQueryOperatorInput>;
+  internal: InputMaybe<InternalFilterInput>;
+  name: InputMaybe<StringQueryOperatorInput>;
+  parent: InputMaybe<NodeFilterInput>;
+  s: InputMaybe<IntQueryOperatorInput>;
+  seoDesc: InputMaybe<StringQueryOperatorInput>;
+  seoTitle: InputMaybe<StringQueryOperatorInput>;
+  shortContent: InputMaybe<StringQueryOperatorInput>;
+  slug: InputMaybe<StringQueryOperatorInput>;
+  title: InputMaybe<StringQueryOperatorInput>;
+  type: InputMaybe<StringQueryOperatorInput>;
 };
 
 
-type Query_allSsettingsArgs = {
-  filter: InputMaybe<SsettingsFilterInput>;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<SsettingsSortInput>>>;
+type Query_asettingsArgs = {
+  children: InputMaybe<NodeFilterListInput>;
+  id: InputMaybe<StringQueryOperatorInput>;
+  internal: InputMaybe<InternalFilterInput>;
+  parent: InputMaybe<NodeFilterInput>;
+  s: InputMaybe<IntQueryOperatorInput>;
+  settings: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -1006,40 +1310,6 @@ type Query_sitePluginArgs = {
   resolve: InputMaybe<StringQueryOperatorInput>;
   ssrAPIs: InputMaybe<StringQueryOperatorInput>;
   version: InputMaybe<StringQueryOperatorInput>;
-};
-
-
-type Query_spagesArgs = {
-  a: InputMaybe<StringQueryOperatorInput>;
-  category: InputMaybe<StringQueryOperatorInput>;
-  children: InputMaybe<NodeFilterListInput>;
-  content: InputMaybe<StringQueryOperatorInput>;
-  display: InputMaybe<BooleanQueryOperatorInput>;
-  faq: InputMaybe<SpagesFaqFilterListInput>;
-  id: InputMaybe<StringQueryOperatorInput>;
-  internal: InputMaybe<InternalFilterInput>;
-  name: InputMaybe<StringQueryOperatorInput>;
-  parent: InputMaybe<NodeFilterInput>;
-  s: InputMaybe<IntQueryOperatorInput>;
-  seoDesc: InputMaybe<StringQueryOperatorInput>;
-  seoTitle: InputMaybe<StringQueryOperatorInput>;
-  shortContent: InputMaybe<StringQueryOperatorInput>;
-  single: InputMaybe<StringQueryOperatorInput>;
-  slug: InputMaybe<StringQueryOperatorInput>;
-  title: InputMaybe<StringQueryOperatorInput>;
-  type: InputMaybe<StringQueryOperatorInput>;
-  volume: InputMaybe<IntQueryOperatorInput>;
-  word: InputMaybe<StringQueryOperatorInput>;
-};
-
-
-type Query_ssettingsArgs = {
-  children: InputMaybe<NodeFilterListInput>;
-  id: InputMaybe<StringQueryOperatorInput>;
-  internal: InputMaybe<InternalFilterInput>;
-  parent: InputMaybe<NodeFilterInput>;
-  s: InputMaybe<IntQueryOperatorInput>;
-  settings: InputMaybe<StringQueryOperatorInput>;
 };
 
 type Site = Node & {
@@ -1811,330 +2081,6 @@ type SiteSortInput = {
 type SortOrderEnum =
   | 'ASC'
   | 'DESC';
-
-type Spages = Node & {
-  readonly a: Maybe<Scalars['String']>;
-  readonly category: Maybe<Scalars['String']>;
-  readonly children: ReadonlyArray<Node>;
-  readonly content: Maybe<Scalars['String']>;
-  readonly display: Maybe<Scalars['Boolean']>;
-  readonly faq: Maybe<ReadonlyArray<Maybe<SpagesFaq>>>;
-  readonly id: Scalars['ID'];
-  readonly internal: Internal;
-  readonly name: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly s: Maybe<Scalars['Int']>;
-  readonly seoDesc: Maybe<Scalars['String']>;
-  readonly seoTitle: Maybe<Scalars['String']>;
-  readonly shortContent: Maybe<Scalars['String']>;
-  readonly single: Maybe<Scalars['String']>;
-  readonly slug: Maybe<Scalars['String']>;
-  readonly title: Maybe<Scalars['String']>;
-  readonly type: Maybe<Scalars['String']>;
-  readonly volume: Maybe<Scalars['Int']>;
-  readonly word: Maybe<Scalars['String']>;
-};
-
-type SpagesConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<SpagesEdge>;
-  readonly group: ReadonlyArray<SpagesGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<Spages>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type SpagesConnection_distinctArgs = {
-  field: SpagesFieldSelector;
-};
-
-
-type SpagesConnection_groupArgs = {
-  field: SpagesFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type SpagesConnection_maxArgs = {
-  field: SpagesFieldSelector;
-};
-
-
-type SpagesConnection_minArgs = {
-  field: SpagesFieldSelector;
-};
-
-
-type SpagesConnection_sumArgs = {
-  field: SpagesFieldSelector;
-};
-
-type SpagesEdge = {
-  readonly next: Maybe<Spages>;
-  readonly node: Spages;
-  readonly previous: Maybe<Spages>;
-};
-
-type SpagesFaq = {
-  readonly content: Maybe<Scalars['String']>;
-  readonly title: Maybe<Scalars['String']>;
-};
-
-type SpagesFaqFieldSelector = {
-  readonly content: InputMaybe<FieldSelectorEnum>;
-  readonly title: InputMaybe<FieldSelectorEnum>;
-};
-
-type SpagesFaqFilterInput = {
-  readonly content: InputMaybe<StringQueryOperatorInput>;
-  readonly title: InputMaybe<StringQueryOperatorInput>;
-};
-
-type SpagesFaqFilterListInput = {
-  readonly elemMatch: InputMaybe<SpagesFaqFilterInput>;
-};
-
-type SpagesFaqSortInput = {
-  readonly content: InputMaybe<SortOrderEnum>;
-  readonly title: InputMaybe<SortOrderEnum>;
-};
-
-type SpagesFieldSelector = {
-  readonly a: InputMaybe<FieldSelectorEnum>;
-  readonly category: InputMaybe<FieldSelectorEnum>;
-  readonly children: InputMaybe<NodeFieldSelector>;
-  readonly content: InputMaybe<FieldSelectorEnum>;
-  readonly display: InputMaybe<FieldSelectorEnum>;
-  readonly faq: InputMaybe<SpagesFaqFieldSelector>;
-  readonly id: InputMaybe<FieldSelectorEnum>;
-  readonly internal: InputMaybe<InternalFieldSelector>;
-  readonly name: InputMaybe<FieldSelectorEnum>;
-  readonly parent: InputMaybe<NodeFieldSelector>;
-  readonly s: InputMaybe<FieldSelectorEnum>;
-  readonly seoDesc: InputMaybe<FieldSelectorEnum>;
-  readonly seoTitle: InputMaybe<FieldSelectorEnum>;
-  readonly shortContent: InputMaybe<FieldSelectorEnum>;
-  readonly single: InputMaybe<FieldSelectorEnum>;
-  readonly slug: InputMaybe<FieldSelectorEnum>;
-  readonly title: InputMaybe<FieldSelectorEnum>;
-  readonly type: InputMaybe<FieldSelectorEnum>;
-  readonly volume: InputMaybe<FieldSelectorEnum>;
-  readonly word: InputMaybe<FieldSelectorEnum>;
-};
-
-type SpagesFilterInput = {
-  readonly a: InputMaybe<StringQueryOperatorInput>;
-  readonly category: InputMaybe<StringQueryOperatorInput>;
-  readonly children: InputMaybe<NodeFilterListInput>;
-  readonly content: InputMaybe<StringQueryOperatorInput>;
-  readonly display: InputMaybe<BooleanQueryOperatorInput>;
-  readonly faq: InputMaybe<SpagesFaqFilterListInput>;
-  readonly id: InputMaybe<StringQueryOperatorInput>;
-  readonly internal: InputMaybe<InternalFilterInput>;
-  readonly name: InputMaybe<StringQueryOperatorInput>;
-  readonly parent: InputMaybe<NodeFilterInput>;
-  readonly s: InputMaybe<IntQueryOperatorInput>;
-  readonly seoDesc: InputMaybe<StringQueryOperatorInput>;
-  readonly seoTitle: InputMaybe<StringQueryOperatorInput>;
-  readonly shortContent: InputMaybe<StringQueryOperatorInput>;
-  readonly single: InputMaybe<StringQueryOperatorInput>;
-  readonly slug: InputMaybe<StringQueryOperatorInput>;
-  readonly title: InputMaybe<StringQueryOperatorInput>;
-  readonly type: InputMaybe<StringQueryOperatorInput>;
-  readonly volume: InputMaybe<IntQueryOperatorInput>;
-  readonly word: InputMaybe<StringQueryOperatorInput>;
-};
-
-type SpagesGroupConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<SpagesEdge>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<SpagesGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<Spages>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type SpagesGroupConnection_distinctArgs = {
-  field: SpagesFieldSelector;
-};
-
-
-type SpagesGroupConnection_groupArgs = {
-  field: SpagesFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type SpagesGroupConnection_maxArgs = {
-  field: SpagesFieldSelector;
-};
-
-
-type SpagesGroupConnection_minArgs = {
-  field: SpagesFieldSelector;
-};
-
-
-type SpagesGroupConnection_sumArgs = {
-  field: SpagesFieldSelector;
-};
-
-type SpagesSortInput = {
-  readonly a: InputMaybe<SortOrderEnum>;
-  readonly category: InputMaybe<SortOrderEnum>;
-  readonly children: InputMaybe<NodeSortInput>;
-  readonly content: InputMaybe<SortOrderEnum>;
-  readonly display: InputMaybe<SortOrderEnum>;
-  readonly faq: InputMaybe<SpagesFaqSortInput>;
-  readonly id: InputMaybe<SortOrderEnum>;
-  readonly internal: InputMaybe<InternalSortInput>;
-  readonly name: InputMaybe<SortOrderEnum>;
-  readonly parent: InputMaybe<NodeSortInput>;
-  readonly s: InputMaybe<SortOrderEnum>;
-  readonly seoDesc: InputMaybe<SortOrderEnum>;
-  readonly seoTitle: InputMaybe<SortOrderEnum>;
-  readonly shortContent: InputMaybe<SortOrderEnum>;
-  readonly single: InputMaybe<SortOrderEnum>;
-  readonly slug: InputMaybe<SortOrderEnum>;
-  readonly title: InputMaybe<SortOrderEnum>;
-  readonly type: InputMaybe<SortOrderEnum>;
-  readonly volume: InputMaybe<SortOrderEnum>;
-  readonly word: InputMaybe<SortOrderEnum>;
-};
-
-type Ssettings = Node & {
-  readonly children: ReadonlyArray<Node>;
-  readonly id: Scalars['ID'];
-  readonly internal: Internal;
-  readonly parent: Maybe<Node>;
-  readonly s: Maybe<Scalars['Int']>;
-  readonly settings: Maybe<Scalars['String']>;
-};
-
-type SsettingsConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<SsettingsEdge>;
-  readonly group: ReadonlyArray<SsettingsGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<Ssettings>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type SsettingsConnection_distinctArgs = {
-  field: SsettingsFieldSelector;
-};
-
-
-type SsettingsConnection_groupArgs = {
-  field: SsettingsFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type SsettingsConnection_maxArgs = {
-  field: SsettingsFieldSelector;
-};
-
-
-type SsettingsConnection_minArgs = {
-  field: SsettingsFieldSelector;
-};
-
-
-type SsettingsConnection_sumArgs = {
-  field: SsettingsFieldSelector;
-};
-
-type SsettingsEdge = {
-  readonly next: Maybe<Ssettings>;
-  readonly node: Ssettings;
-  readonly previous: Maybe<Ssettings>;
-};
-
-type SsettingsFieldSelector = {
-  readonly children: InputMaybe<NodeFieldSelector>;
-  readonly id: InputMaybe<FieldSelectorEnum>;
-  readonly internal: InputMaybe<InternalFieldSelector>;
-  readonly parent: InputMaybe<NodeFieldSelector>;
-  readonly s: InputMaybe<FieldSelectorEnum>;
-  readonly settings: InputMaybe<FieldSelectorEnum>;
-};
-
-type SsettingsFilterInput = {
-  readonly children: InputMaybe<NodeFilterListInput>;
-  readonly id: InputMaybe<StringQueryOperatorInput>;
-  readonly internal: InputMaybe<InternalFilterInput>;
-  readonly parent: InputMaybe<NodeFilterInput>;
-  readonly s: InputMaybe<IntQueryOperatorInput>;
-  readonly settings: InputMaybe<StringQueryOperatorInput>;
-};
-
-type SsettingsGroupConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<SsettingsEdge>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<SsettingsGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<Ssettings>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type SsettingsGroupConnection_distinctArgs = {
-  field: SsettingsFieldSelector;
-};
-
-
-type SsettingsGroupConnection_groupArgs = {
-  field: SsettingsFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type SsettingsGroupConnection_maxArgs = {
-  field: SsettingsFieldSelector;
-};
-
-
-type SsettingsGroupConnection_minArgs = {
-  field: SsettingsFieldSelector;
-};
-
-
-type SsettingsGroupConnection_sumArgs = {
-  field: SsettingsFieldSelector;
-};
-
-type SsettingsSortInput = {
-  readonly children: InputMaybe<NodeSortInput>;
-  readonly id: InputMaybe<SortOrderEnum>;
-  readonly internal: InputMaybe<InternalSortInput>;
-  readonly parent: InputMaybe<NodeSortInput>;
-  readonly s: InputMaybe<SortOrderEnum>;
-  readonly settings: InputMaybe<SortOrderEnum>;
-};
 
 type StringQueryOperatorInput = {
   readonly eq: InputMaybe<Scalars['String']>;

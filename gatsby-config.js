@@ -28,7 +28,7 @@ const config = {
         short_name: process.env.NAME,
         start_url: process.env.PUBLIC_URL,
         background_color: `#ffffff`,
-        theme_color: `#b10216`,
+        theme_color: `#00CD78`,
         display: `standalone`,
         include_favicon: false,
         icons: [

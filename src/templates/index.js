@@ -13,7 +13,7 @@ import Keywords from "../components/Keywords";
 import Cities from "../components/Cities";
 import Places from "../components/Places";
 import Posts from "../components/Posts";
-import Selection from "../components/Selection";
+import WhyUs from "../components/WhyUs";
 import Sitemap from "../components/Sitemap";
 import Source from "../components/Source";
 import CategoryKeywords from "../components/CategoryKeywords";
@@ -29,6 +29,9 @@ import PlacesFaq from "../components/PlacesFaq";
 import CategoryPlacesKeywords from "../components/CategoryPlacesKeywords";
 import CategoryPlacesCities from "../components/CategoryPlacesCities";
 
+import Brands from "../components/Brands";
+import CodesLast from "../components/CodesLast";
+
 import "../data/styles.css";
 
 const COMPONENT_MAP = {
@@ -43,7 +46,7 @@ const COMPONENT_MAP = {
   Cities,
   Places,
   Posts,
-  Selection,
+  WhyUs,
   Seo,
   Sitemap,
   Source,
@@ -59,11 +62,14 @@ const COMPONENT_MAP = {
   PlacesFaq,
   CategoryPlacesKeywords,
   CategoryPlacesCities,
+  Brands,
+  CodesLast,
 };
 
 export default function Template({ pageContext }) {
   const { allData } = useStatic(pageContext);
   const components = allData?.settings?.[pageContext?.type] || [];
+  // console.log(allData);
   return (
     <GlobalProvider value={allData}>
       <Header />
@@ -73,7 +79,7 @@ export default function Template({ pageContext }) {
         if (!Component) return null;
         return <Component key={index} />;
       })}
-      <FooterAbove />
+      {/* <Selection /> */}
       <Footer />
     </GlobalProvider>
   );
