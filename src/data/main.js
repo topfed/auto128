@@ -53,15 +53,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const q = e.target.value.toLowerCase();
     l.innerHTML = "";
 
-    const r = i.filter((x) => x.name.toLowerCase().includes(q));
+    const r = i.filter((x) => x.toLowerCase().includes(q));
     m.style.display = q && r.length ? "none" : "";
     l.style.display = q && r.length ? "" : "none";
 
     r.slice(0, 10).forEach((x) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
-      a.href = "/" + x.slug + "/";
-      a.textContent = x.name;
+      a.href = "/" + x + "/";
+      a.textContent = x;
       li.appendChild(a);
       l.appendChild(li);
     });

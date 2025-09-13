@@ -732,8 +732,8 @@ a.active {
 .btx-no {
   border: var(--bs);
   border-radius: 4px;
-  font-size: 14px;
-  padding: 8px 16px;
+  font-size: 12px;
+  padding: 4px 8px;
   background: #ffffff;
   cursor: pointer;
 }

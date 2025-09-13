@@ -61,3 +61,51 @@ export const productDescription = (description) => {
     description.substring(bestSplitIndex + 1).trim(),
   ];
 };
+
+export const groupBrandsAlphabetically = (brands) => {
+  if (!Array.isArray(brands)) return [];
+
+  // Normalize: lowercase + trim, sort alphabetically
+  const sorted = [...brands]
+    .map((b) => b.trim())
+    .filter(Boolean)
+    .sort((a, b) => a.localeCompare(b, "en", { sensitivity: "base" }));
+
+  const total = sorted.length;
+  const groupCount = 10;
+  const groupSize = Math.ceil(total / groupCount);
+
+  const groups = [];
+
+  for (let i = 0; i < groupCount; i++) {
+    const start = i * groupSize;
+    const end = start + groupSize;
+    const chunk = sorted.slice(start, end);
+
+    if (chunk.length) {
+      // Determine group label from first+last brand's first letter
+      const firstLetter = chunk[0][0].toLowerCase();
+      const lastLetter = chunk[chunk.length - 1][0].toLowerCase();
+      const label =
+        firstLetter === lastLetter
+          ? `${firstLetter}`
+          : `${firstLetter}-${lastLetter}`;
+
+      groups.push({ label, items: chunk });
+    }
+  }
+
+  return groups;
+};
+
+export const slugify = (segment) => {
+  return encodeURI(
+    String(segment)
+      .toLowerCase()
+      .replace(/[()]/g, "") // drop parentheses
+      .replace(/[^\w\- ]+/g, "") // keep word chars, dash, space
+      .replace(/\s+/g, "-") // spaces -> dashes
+      .replace(/-+/g, "-") // collapse dashes
+      .replace(/^-|-$/g, "") // trim ends
+  );
+};

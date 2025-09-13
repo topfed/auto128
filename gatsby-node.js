@@ -11,8 +11,107 @@ if (!admin.apps.length) {
     }),
   });
 }
-
 const db = admin.firestore();
+
+function normalize(str) {
+  if (!str) return "";
+  // Normalize dash variants → "-"
+  str = str.replace(/[\u2010-\u2015\u2212]/g, "-");
+  // Remove spaces around hyphens: "E - Class" → "E-Class", "2003 - 2009" → "2003-2009"
+  str = str.replace(/\s*-\s*/g, "-");
+  // Collapse spaces, trim, drop trailing commas
+  str = str.replace(/\s+/g, " ").trim().replace(/,+$/, "");
+  return str;
+}
+
+function parseComp(entry) {
+  const s = normalize(entry);
+  const i = s.indexOf(" ");
+  if (i <= 0) return null;
+  const brand = s.slice(0, i).trim();
+  const model = s.slice(i + 1).trim();
+  if (!brand || !model) return null;
+  return { brand, model };
+}
+
+function slugify(segment) {
+  return encodeURI(
+    String(segment)
+      .toLowerCase()
+      .replace(/[()]/g, "") // drop parentheses
+      .replace(/[^\w\- ]+/g, "") // keep word chars, dash, space
+      .replace(/\s+/g, "-") // spaces -> dashes
+      .replace(/-+/g, "-") // collapse dashes
+      .replace(/^-|-$/g, "") // trim ends
+  );
+}
+
+let codesAndCatalogPromise;
+
+async function getCodesAndCatalog() {
+  if (codesAndCatalogPromise) return codesAndCatalogPromise;
+
+  codesAndCatalogPromise = (async () => {
+    const brandMap = {};
+    const modelMap = {};
+    const codesData = [];
+
+    const snapshot = await db.collection("A_codes").get();
+
+    snapshot.forEach((doc) => {
+      const data = doc.data() || {};
+      const code = String(data.code || data.cod || doc.id).trim();
+      if (!code) return;
+
+      const comp = Array.isArray(data.comp) ? data.comp : [];
+      const products = Array.isArray(data.products) ? data.products : [];
+      const content = data?.content ?? null;
+      const update =
+        data?.update?.toDate?.()?.getTime?.() ??
+        data?.updatedAt?.toDate?.()?.getTime?.() ??
+        null;
+
+      codesData.push({ code, comp, products, content, update });
+
+      comp.forEach((entry) => {
+        const parsed = parseComp(entry);
+        if (!parsed) return;
+        const { brand, model } = parsed;
+
+        if (!brandMap[brand]) {
+          brandMap[brand] = {
+            name: brand,
+            codes: new Set(),
+            models: new Set(),
+          };
+        }
+        brandMap[brand].codes.add(code);
+        brandMap[brand].models.add(model);
+
+        const key = `${brand}::${model}`;
+        if (!modelMap[key]) {
+          modelMap[key] = { name: model, brand, codes: new Set() };
+        }
+        modelMap[key].codes.add(code);
+      });
+    });
+
+    const brands = Object.values(brandMap).map((b) => ({
+      name: b.name,
+      codes: Array.from(b.codes).sort(),
+      models: Array.from(b.models).sort(),
+    }));
+    const models = Object.values(modelMap).map((m) => ({
+      name: m.name,
+      brand: m.brand,
+      codes: Array.from(m.codes).sort(),
+    }));
+
+    return { codesData, brands, models };
+  })();
+
+  return codesAndCatalogPromise;
+}
 
 exports.sourceNodes = async ({
   actions,
@@ -21,26 +120,9 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions;
 
-  // const places = await db.collection("S_places").get();
-  // const placesSort = places?.docs?.map((e) => {
-  //   const data = e?.data();
-  //   return {
-  //     id: e.id,
-  //     count: data?.places?.length,
-  //   };
-  // });
-  // const groupedByCity = placesSort
-  //   ?.filter((a) => a.count > 9)
-  //   ?.reduce((acc, item) => {
-  //     const parts = item.id.split("-");
-  //     const city = parts.pop();
-  //     const service = parts.join("-");
-  //     if (!acc[city]) {
-  //       acc[city] = [];
-  //     }
-  //     acc[city].push(service);
-  //     return acc;
-  //   }, {});
+  // Build once here so we can put catalog into settings
+  const { codesData, brands, models } = await getCodesAndCatalog();
+  const catalog = { brands, models, codesData };
 
   const collections = process.env.COLLECTIONS_NODE.split(",");
   for (const collection of collections) {
@@ -51,11 +133,23 @@ exports.sourceNodes = async ({
         .get();
 
       snapshot.forEach((doc) => {
-        const data = doc.data();
+        const data = doc.data() || {};
+
+        // For settings collections, inject catalog into settings before stringifying
         if (collection.endsWith("settings") && data.settings) {
-          // data.settings.groupedByCity = groupedByCity;
-          data.settings = JSON.stringify(data.settings);
+          if (typeof data.settings === "string") {
+            try {
+              data.settings = JSON.parse(data.settings);
+            } catch (_) {
+              data.settings = { raw: String(data.settings) };
+            }
+          }
+          if (typeof data.settings === "object" && data.settings) {
+            data.settings.catalog = catalog;
+          }
+          data.settings = JSON.stringify(data.settings); // keep your original behavior
         }
+
         createNode({
           ...data,
           id: createNodeId(`${collection}-${doc.id}`),
@@ -76,8 +170,14 @@ exports.sourceNodes = async ({
   }
 };
 
-exports.createPages = async ({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
+  const template = path.resolve(`./src/templates/index.js`);
+
+  // Build codes + catalog (no cache)
+  const { codesData, brands, models } = await getCodesAndCatalog();
+
+  // 1) CMS pages
   const result = await graphql(`
     {
       allApages {
@@ -88,110 +188,83 @@ exports.createPages = async ({ graphql, actions }) => {
       }
     }
   `);
+  if (result.errors) throw result.errors;
 
-  if (result.errors) {
-    throw result.errors;
-  }
+  const pages = result.data?.allApages?.nodes || [];
 
-  const template = path.resolve(`./src/templates/index.js`);
-  const pages = result.data.allApages.nodes;
-  // const keywords = pages?.filter(
-  //   (e) => e?.type === "keyword" && e?.category !== null
-  // );
-  // const cities = pages?.filter((e) => e?.type === "city");
-  // const categories = pages?.filter((e) => e?.type === "category");
-
-  pages.forEach((content) => {
-    if (content.slug !== "/" && content.slug !== "404") {
+  // Other CMS pages
+  pages.forEach((p) => {
+    if (p.slug !== "/" && p.slug !== "404") {
       createPage({
-        path: `/${content.slug}/`,
+        path: `/${p.slug}/`,
         component: template,
         context: {
-          slug: content.slug,
-          type: content.type,
+          slug: p.slug,
+          type: p.type,
+          // If you want catalog everywhere, you can also pass it here.
         },
       });
     }
   });
 
-  // for (const category of categories) {
-  //   for (const city of cities) {
-  //     createPage({
-  //       path: `/${category.slug}/${city.slug}/`,
-  //       component: template,
-  //       context: {
-  //         category: category.slug,
-  //         city: city.slug,
-  //         type: "categoryPlace",
-  //       },
-  //     });
-  //   }
-  // }
+  // 2) Code pages
+  codesData.forEach(({ code, comp, products, content, update }) => {
+    createPage({
+      path: `/${slugify(code)}/`,
+      component: template,
+      context: {
+        type: "code",
+        code,
+        comp,
+        products,
+        content,
+        update,
+      },
+    });
+  });
 
-  // const places = await db.collection("A_places").get();
-  // const placesSort = places?.docs
-  //   ?.map((e, i) => {
-  //     const data = e?.data();
-  //     return {
-  //       id: e.id,
-  //       count: data?.places?.length,
-  //       places: data?.places,
-  //       update: data?.update,
-  //     };
-  //   })
-  //   .sort((a, b) => b.count - a.count);
-  // let c = 0;
-  // for (const doc of placesSort) {
-  //   c++;
-  //   if (doc?.count > 9) {
-  //     const parts = doc.id.split("-");
-  //     const city = parts.pop();
-  //     const service = parts.join("-");
-  //     createPage({
-  //       path: `/${service}/${city}/`,
-  //       component: template,
-  //       context: {
-  //         keyword: service,
-  //         city: city,
-  //         type: "place",
-  //         update: doc?.update?.toDate?.().getTime?.(),
-  //         places:
-  //           [
-  //             ...doc?.places?.filter((e) => e?.status === 1),
-  //             ...doc?.places?.filter((e) => e?.status === 2),
-  //           ] || [],
-  //       },
-  //     });
-  //   }
-  // }
+  // 3) Brand pages (optional but handy)
+  brands.forEach((b) => {
+    createPage({
+      path: `/${slugify(b.name)}/`,
+      component: template,
+      context: {
+        type: "brand",
+        brand: b.name,
+        codes: b.codes,
+        models: b.models,
+      },
+    });
+  });
+
+  // 4) Brand + Model pages
+  models.forEach((m) => {
+    const brandSlug = slugify(m.brand);
+    const modelSlug = slugify(m.name);
+    createPage({
+      path: `/${brandSlug}/${modelSlug}/`,
+      component: template,
+      context: {
+        type: "model",
+        brand: m.brand,
+        model: m.name,
+        codes: m.codes,
+      },
+    });
+  });
+
+  reporter.info(
+    `Created: ${codesData.length} code pages, ${brands.length} brand pages, ${models.length} brand-model pages.`
+  );
 };
 
-// exports.onPostBuild = async ({ graphql }) => {
-//   const result = await graphql(`
-//     {
-//       allSpages {
-//         nodes {
-//           slug
-//           type
-//           name
-//           category
-//         }
-//       }
-//     }
-//   `);
+exports.onPostBuild = async ({ graphql }) => {
+  const { codesData } = await getCodesAndCatalog();
 
-//   const pages = result.data.allSpages.nodes;
-//   const keywords = pages?.filter(
-//     (e) => e?.type === "keyword" && e?.category !== null
-//   );
+  const index = codesData?.map((node) => slugify(node.code));
 
-//   const index = keywords?.map((node) => ({
-//     name: node.name,
-//     slug: node.slug,
-//   }));
-
-//   fs.writeFileSync(
-//     path.join(__dirname, "public/search-index.json"),
-//     JSON.stringify(index)
-//   );
-// };
+  fs.writeFileSync(
+    path.join(__dirname, "public/search-index.json"),
+    JSON.stringify(index)
+  );
+};

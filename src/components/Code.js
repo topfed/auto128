@@ -8,7 +8,7 @@ dayjs.extend(relativeTime);
 
 // import Image from "./Sections/Image";
 
-const Places = () => {
+const Code = () => {
   const { settings, context, slugData } = useGlobal();
   const option = (settings[context?.type] || [])?.find(
     (e) => e?.id === "Places"
@@ -304,4 +304,4 @@ const Places = () => {
   );
 };
 
-export default Places;
+export default Code;

@@ -3,13 +3,13 @@ import { useGlobal } from "../data/useContext";
 import { groupBrandsAlphabetically, slugify } from "../data/functions";
 import Svg from "./Svg";
 
-const Brands = () => {
+const Models = () => {
   const { settings, keywords, categories, context } = useGlobal();
   const options = (settings[context?.type] || [])?.find(
     (e) => e?.id === "Brands"
   );
-  const brands = groupBrandsAlphabetically(
-    settings?.catalog?.brands?.map((e) => e?.name)
+  const models = groupBrandsAlphabetically(
+    settings?.catalog?.models?.map((e) => e?.name)
   );
 
   return (
@@ -24,7 +24,7 @@ const Brands = () => {
           <p>{options?.content?.split("###")[1]}</p>
         )}
         <div className="d-grid grid-3 gap-4 mt-5">
-          {brands?.map((e, i) => {
+          {models?.map((e, i) => {
             return (
               <div className="box-border p-0" key={i}>
                 <input
@@ -74,4 +74,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default Models;

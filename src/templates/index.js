@@ -11,7 +11,7 @@ import Form from "../components/Form";
 import Hero from "../components/Hero";
 import Keywords from "../components/Keywords";
 import Cities from "../components/Cities";
-import Places from "../components/Places";
+import Places from "../components/Code";
 import Posts from "../components/Posts";
 import WhyUs from "../components/WhyUs";
 import Sitemap from "../components/Sitemap";
@@ -30,6 +30,8 @@ import CategoryPlacesKeywords from "../components/CategoryPlacesKeywords";
 import CategoryPlacesCities from "../components/CategoryPlacesCities";
 
 import Brands from "../components/Brands";
+import Models from "../components/Models";
+import Code from "../components/Code";
 import CodesLast from "../components/CodesLast";
 
 import "../data/styles.css";
@@ -63,6 +65,8 @@ const COMPONENT_MAP = {
   CategoryPlacesKeywords,
   CategoryPlacesCities,
   Brands,
+  Models,
+  Code,
   CodesLast,
 };
 

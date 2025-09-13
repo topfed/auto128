@@ -6,6 +6,7 @@ const CodesLast = () => {
   const options = (settings[context?.type] || [])?.find(
     (e) => e?.id === "CodesLast"
   );
+  console.log(settings);
   return (
     <section className="bg-light">
       <div className="container cont-space">
@@ -17,17 +18,15 @@ const CodesLast = () => {
         {options?.content?.split("###")[1] && (
           <p>{options?.content?.split("###")[1]}</p>
         )}
-        {/* <div className="d-flex flex-wrap mt-5 gap-2">
-          {cities
-            ?.sort((a, b) => a.volume - b.volume)
-            ?.map((e, i) => {
-              return (
-                <a className="btx-no" key={i} href={`/${e?.slug}/`}>
-                  {e?.name}
-                </a>
-              );
-            })}
-        </div> */}
+        <div className="d-flex flex-wrap mt-5 gap-2">
+          {settings?.catalog?.codesData?.slice(0, 100).map((e, i) => {
+            return (
+              <a className="btx-no" key={i} href={`/${e?.code}/`}>
+                {e?.code}
+              </a>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

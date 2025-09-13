@@ -7,7 +7,7 @@ const WhyUs = () => {
   const options = (settings[context?.type] || [])?.find(
     (e) => e?.id === "WhyUs"
   );
-  console.log(options);
+  // console.log(options);
   return (
     <section className="bg-white">
       <div className="container cont-space">

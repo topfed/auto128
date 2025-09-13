@@ -7,3 +7,5 @@ xcateg.js
 xstart.js
 oldDataT
 test.html
+.env.development
+.env.production
