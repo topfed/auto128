@@ -38,12 +38,10 @@ export default function useStatic(pageContext = {}) {
     const allData = {
       settings: settingsParsed,
       context: pageContext,
-      codes: [],
       pages: rawData?.allApages?.nodes,
     };
     return {
       ...allData,
-      slugData: [...allData?.pages],
     };
   }, [rawData, pageContext]);
 

@@ -8,6 +8,13 @@ const Header = () => {
   return (
     <header>
       <div className="container d-flex justify-between items-center">
+        <label
+          htmlFor="menu-toggle"
+          className="mobile-only"
+          aria-label={options?.menuLabel}
+        >
+          <Svg name="search" width="24px" height="24px" />
+        </label>
         <a href="/" aria-label={options?.logoLabel}>
           <Svg
             name="Logo"

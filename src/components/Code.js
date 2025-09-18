@@ -6,8 +6,6 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import Svg from "./Svg";
 dayjs.extend(relativeTime);
 
-// import Image from "./Sections/Image";
-
 const Code = () => {
   const { settings, context, slugData } = useGlobal();
   const option = (settings[context?.type] || [])?.find(
@@ -23,9 +21,6 @@ const Code = () => {
     (e) => e?.slug === keyword?.category && e?.type === `category`
   );
   const searchWord = `${keyword?.slug?.replace("-", "+")}+${city?.slug}+uk`;
-
-  // console.log(keyword);
-  // console.log(context);
 
   return (
     <section className="bg-white">

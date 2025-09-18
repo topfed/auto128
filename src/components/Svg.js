@@ -15,19 +15,19 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           }}
         >
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M400,172.5h0c-.06.78-.72,1.38-1.51,1.35l-23.04-.85c-.83-.03-1.65-.18-2.44-.44l-11.94-3.9c-29.08-10.22-57.16-23.64-86.67-32.4-26.12-6.78-53.95-6.55-80.32-1.22-7.59,1.54-14.8,3.92-22.04,6.76-12.69,4.91-30.99,12.23-43.89,17.24-6.79,2.75-16.66,3.09-23.9,3.77-15.36,1.34-31.41,2.69-46.59,5.14-2.79.44-5.7.99-8.45,1.64-9.8,2.33-19.18,6.31-27.88,11.41-2.06,1.23-4.2,2.56-6.29,3.79l-.92-1.27c5.2-4.74,10.96-8.8,17.15-12.09s12.76-5.8,19.61-7.46c9.65-2.25,19.61-3.38,29.4-4.45,10.76-1.18,24.33-2.31,35.18-3.32,3.67-.37,7.29-1.2,10.75-2.47,13-5.06,30.91-12.34,43.74-17.35,5.51-2.15,11.26-4.25,17.06-5.72,28.45-7.1,60.52-7.54,88.95-.09,11.45,3.21,22.48,7.73,33.54,11.89,6.64,2.49,15.3,6.19,21.88,8.9,13.15,5.51,30.49,11.78,42.03,16.37.78.31,1.58.5,2.4.59,5.52.55,12.67,1.33,17.93,1.98,1.67.2,3.34.42,5.01.65.77.1,1.32.79,1.26,1.56Z"
           />
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M246.26,140.7l-6.34,29.59-22.39,104.54,13.19-104.54h-89.85c-4.02,0-5.02-5.58-1.25-6.98l43.11-16.06c18.36-6.84,41.7-8.87,63.53-6.55Z"
           />
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M300.04,170.29h-50.4l6.19-28.28c8.25,1.39,16.13,3.43,23.26,6.08l33.28,14.81c.91.41,1.64,1.18,1.9,2.14.55,2.07-.78,5.25-14.22,5.25Z"
           />
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M313.29,163.31s6.66,6.98-13.25,6.98l13.25-6.98Z"
           />
           <g>
@@ -50,19 +50,19 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           </g>
           <g>
             <polygon
-              fill="#00cd78"
+              fill="#00663C"
               points="280.7 250.82 280.39 252.65 278.31 264.61 238.34 264.61 240.73 250.82 280.7 250.82"
             />
             <path
-              fill="#00cd78"
+              fill="#00663C"
               d="M262.21,189.26h8.96c5.04,0,8.91,4.45,8.21,9.44l-9.23,65.91h-18.6l5.41-38.24,3.31-23.32h-11.85l1.95-13.79h11.84Z"
             />
             <path
-              fill="#00cd78"
+              fill="#00663C"
               d="M286.16,264.61l3.66-26.02c1.57-11.18,5.75-14.84,16.93-14.84h12.02c1.36,0,1.88-.31,2.09-1.88l2.3-16.09c.21-1.57-.21-1.99-1.57-1.99h-6.37c-1.36,0-1.99.42-2.19,1.99l-1.04,6.9-18.39-1.04,1.04-7.32c1.57-11.18,5.75-14.84,16.93-14.84h17.66c11.18,0,14.32,3.66,12.75,14.84l-2.19,15.47c-1.78,12.23-5.85,16.2-17.14,16.2h-11.91c-1.46,0-2.09.31-2.19,1.88l-1.88,12.44h28.84l-1.99,14.32h-47.34Z"
             />
             <path
-              fill="#00cd78"
+              fill="#00663C"
               d="M359.2,265.13c-11.29,0-14.42-3.66-12.75-14.84l1.15-8.36c1.36-10.03,4.81-13.69,13.38-14.53-8.15-.94-10.66-4.49-9.2-14.53l1.15-8.46c1.67-11.18,5.75-14.84,16.93-14.84h17.14c11.08,0,14.21,3.66,12.54,14.84l-1.15,8.36c-1.46,10.03-4.81,13.79-13.27,14.63,8.26.84,10.76,4.49,9.41,14.53l-1.15,8.36c-1.67,11.18-5.75,14.84-17.03,14.84h-17.14ZM372.68,251.55c1.36,0,1.99-.31,2.19-1.99l1.88-13.69c.31-1.88-.52-2.4-2.09-2.4h-4.81c-1.57,0-2.72.52-3.03,2.4l-1.88,13.69c-.21,1.67.31,1.99,1.67,1.99h6.06ZM376.23,221.34c1.46,0,2.61-.63,2.82-2.51l1.88-13.79c.31-1.57-.21-1.99-1.57-1.99h-5.75c-1.36,0-1.99.42-2.3,1.99l-1.88,13.79c-.21,1.88.73,2.51,2.19,2.51h4.6Z"
             />
           </g>
@@ -81,19 +81,19 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           }}
         >
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M400,172.5h0c-.06.78-.72,1.38-1.51,1.35l-23.04-.85c-.83-.03-1.65-.18-2.44-.44l-11.94-3.9c-29.08-10.22-57.16-23.64-86.67-32.4-26.12-6.78-53.95-6.55-80.32-1.22-7.59,1.54-14.8,3.92-22.04,6.76-12.69,4.91-30.99,12.23-43.89,17.24-6.79,2.75-16.66,3.09-23.9,3.77-15.36,1.34-31.41,2.69-46.59,5.14-2.79.44-5.7.99-8.45,1.64-9.8,2.33-19.18,6.31-27.88,11.41-2.06,1.23-4.2,2.56-6.29,3.79l-.92-1.27c5.2-4.74,10.96-8.8,17.15-12.09s12.76-5.8,19.61-7.46c9.65-2.25,19.61-3.38,29.4-4.45,10.76-1.18,24.33-2.31,35.18-3.32,3.67-.37,7.29-1.2,10.75-2.47,13-5.06,30.91-12.34,43.74-17.35,5.51-2.15,11.26-4.25,17.06-5.72,28.45-7.1,60.52-7.54,88.95-.09,11.45,3.21,22.48,7.73,33.54,11.89,6.64,2.49,15.3,6.19,21.88,8.9,13.15,5.51,30.49,11.78,42.03,16.37.78.31,1.58.5,2.4.59,5.52.55,12.67,1.33,17.93,1.98,1.67.2,3.34.42,5.01.65.77.1,1.32.79,1.26,1.56Z"
           />
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M246.26,140.7l-6.34,29.59-22.39,104.54,13.19-104.54h-89.85c-4.02,0-5.02-5.58-1.25-6.98l43.11-16.06c18.36-6.84,41.7-8.87,63.53-6.55Z"
           />
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M300.04,170.29h-50.4l6.19-28.28c8.25,1.39,16.13,3.43,23.26,6.08l33.28,14.81c.91.41,1.64,1.18,1.9,2.14.55,2.07-.78,5.25-14.22,5.25Z"
           />
           <path
-            fill="#00cd78"
+            fill="#00663C"
             d="M313.29,163.31s6.66,6.98-13.25,6.98l13.25-6.98Z"
           />
           <g>
@@ -116,19 +116,19 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           </g>
           <g>
             <polygon
-              fill="#00cd78"
+              fill="#00663C"
               points="280.7 250.82 280.39 252.65 278.31 264.61 238.34 264.61 240.73 250.82 280.7 250.82"
             />
             <path
-              fill="#00cd78"
+              fill="#00663C"
               d="M262.21,189.26h8.96c5.04,0,8.91,4.45,8.21,9.44l-9.23,65.91h-18.6l5.41-38.24,3.31-23.32h-11.85l1.95-13.79h11.84Z"
             />
             <path
-              fill="#00cd78"
+              fill="#00663C"
               d="M286.16,264.61l3.66-26.02c1.57-11.18,5.75-14.84,16.93-14.84h12.02c1.36,0,1.88-.31,2.09-1.88l2.3-16.09c.21-1.57-.21-1.99-1.57-1.99h-6.37c-1.36,0-1.99.42-2.19,1.99l-1.04,6.9-18.39-1.04,1.04-7.32c1.57-11.18,5.75-14.84,16.93-14.84h17.66c11.18,0,14.32,3.66,12.75,14.84l-2.19,15.47c-1.78,12.23-5.85,16.2-17.14,16.2h-11.91c-1.46,0-2.09.31-2.19,1.88l-1.88,12.44h28.84l-1.99,14.32h-47.34Z"
             />
             <path
-              fill="#00cd78"
+              fill="#00663C"
               d="M359.2,265.13c-11.29,0-14.42-3.66-12.75-14.84l1.15-8.36c1.36-10.03,4.81-13.69,13.38-14.53-8.15-.94-10.66-4.49-9.2-14.53l1.15-8.46c1.67-11.18,5.75-14.84,16.93-14.84h17.14c11.08,0,14.21,3.66,12.54,14.84l-1.15,8.36c-1.46,10.03-4.81,13.79-13.27,14.63,8.26.84,10.76,4.49,9.41,14.53l-1.15,8.36c-1.67,11.18-5.75,14.84-17.03,14.84h-17.14ZM372.68,251.55c1.36,0,1.99-.31,2.19-1.99l1.88-13.69c.31-1.88-.52-2.4-2.09-2.4h-4.81c-1.57,0-2.72.52-3.03,2.4l-1.88,13.69c-.21,1.67.31,1.99,1.67,1.99h6.06ZM376.23,221.34c1.46,0,2.61-.63,2.82-2.51l1.88-13.79c.31-1.57-.21-1.99-1.57-1.99h-5.75c-1.36,0-1.99.42-2.3,1.99l-1.88,13.79c-.21,1.88.73,2.51,2.19,2.51h4.6Z"
             />
           </g>
@@ -154,11 +154,11 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             y="18.8"
             rx="10"
             ry="10"
-            fill="#00cd78"
+            fill="#00663C"
           />
           <path
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4px"
             d="M149.2 143.5c2.4-3.5 3.8-7.7 3.8-12.3M106 153h25.2c2.5 0 4.8-.4 7-1.1M153 95.9V28.8c0-12-9.8-21.8-21.8-21.8H28.8C16.8 7 7 16.7 7 28.8v102.4c0 12 9.7 21.8 21.8 21.8H99"
           />
@@ -189,11 +189,11 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             y="18.8"
             rx="10"
             ry="10"
-            fill="#00cd78"
+            fill="#00663C"
           />
           <path
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4px"
             d="M149.2 143.5c2.4-3.5 3.8-7.7 3.8-12.3M106 153h25.2c2.5 0 4.8-.4 7-1.1M153 95.9V28.8c0-12-9.8-21.8-21.8-21.8H28.8C16.8 7 7 16.7 7 28.8v102.4c0 12 9.7 21.8 21.8 21.8H99"
           />
@@ -294,28 +294,28 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <path
             d="m70.1 111.8-.6-1-.6-1-.2-.3c-12.2-19.3-28-22.8-32.5-31.6-4.9-9.6-2-15.7-8.2-28-4.6-9-12.8-13.9-18.3-11S3.4 51.2 8 60c6.3 12.4 13 13.5 17.9 23 4.5 8.9-2 23.7 6.5 44.9l.2.4.4 1 .5 1.1c0 .3.2.5.3.8a57.7 57.7 0 0 0 1.6 3.1c6.7 12.5 16.7 21 25.5 22.4a69 69 0 0 0 14.5-7.4c3.9-8 3-21-3.2-33.8l-.6-1.1-1-2-.5-.7Z"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
           <path
             d="M149.9 126.3a42.3 42.3 0 0 0 .4-2.2l.1-.4c4-22.5-5.4-35.7-2.8-45.3 2.8-10.3 9-12.8 12.7-26.2 2.6-9.7-.1-18.8-6-20.4s-13 4.8-15.7 14.5c-3.6 13.4.6 18.8-2.2 29.1C133.8 85 119 91.6 111 113l-.2.4c0 .4-.2.7-.3 1.1l-.4 1c0 .4-.2.6-.3 1a62.5 62.5 0 0 0-.9 3.3c-3.4 13.7-1.7 26.7 3.8 33.7a66 66 0 0 0 15.7 4.2c8.3-3.2 16.3-13.5 20.3-27.1l.4-1.3.5-2.1.2-.9Z"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
           <path
             d="M104.3 94.2l-.2-1.1-.2-1.2-.1-.4c-5-22.3-18.6-31-19.9-40.7-1.3-10.7 3.6-15.4 1.8-29.2-1.2-10-7.2-17.3-13.4-16.5-6.1.7-10.1 9.4-8.9 19.3 1.8 13.8 7.7 17.2 9 27.8 1.3 9.8-9.8 21.6-9 44.4v1.6l.1 1.1v1l.3 2 .2 1.4c2 14 8.6 25.3 16.3 29.7a67.5 67.5 0 0 0 16.2-2c6.4-6.2 9.9-18.8 8.4-32.9l-.1-1.3-.3-2.2-.2-.8Z"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
           <path
             d="M25.3 79.6l10.1-5.2M30.3 90.8l10-5.2M72.1 46.3l11.2-1.7M73.1 58.5l11.2-1.6M138.9 70l11.8 3.6M133.4 80.9l13.9 4.4"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
@@ -350,7 +350,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             height="13"
             rx="2"
             ry="2"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -365,21 +365,21 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M66.5 18h-48l-5 63h58l-5-63z"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
           />
           <path
             d="M0 81h85"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
           />
           <path
             d="M17.4 32.1h25.1M17.4 49h25.1M17.4 66h25.1"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -403,21 +403,21 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <path
             d="M83 41.5C80.3 19.7 75 5 69 5c-8.8 0-16 31.5-16 70.5s7.2 70.4 16 70.4c6 0 11.3-14.7 14-36.5"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
           <path
             d="M46.6 46.4C26.4 37.8 11 35 8 40.1c-4.4 7.7 19.4 29.6 53 49 33.7 19.5 64.6 29.1 69 21.5 3-5.2-7-17.1-24.6-30.4"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
           <path
             d="M32.6 80.3C15.1 93.6 5 105.5 8 110.7c4.4 7.6 35.3-2 69-21.4 33.7-19.5 57.4-41.4 53-49-3-5.3-18.4-2.5-38.5 6"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
           />
@@ -461,21 +461,21 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M7 7h138.9v88H7z"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M39.5 64.9 62 42.4l21.7 21.7 23.9-23.9"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M85.9 39.2h22.7v22.9"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
@@ -497,21 +497,21 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
         >
           <path
             d="M94.7 34.3h67.6V137H5V34.3h67.7"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M30.4 122c-6.3 0-8.7-4.6-8.7-4.6v-7.2c0-6.2 5-11.3 11.2-11.3l7.9-.8c0 5.8 10.4 9.4 10.4 9.4s10.4-3.6 10.4-9.4l7.9.8c6.2 0 11.2 5 11.2 11.3v7.2s-1.8 4.5-8.7 4.5H30.4Z"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="6"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M93.3 56.1h35M93.3 76.1h55.4M93.3 96.1h35M93.3 116.1h55.4"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
@@ -572,7 +572,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <path
             d="m107.5 60.7 13.9-13.9 41-41c8.8 8.7 8.8 23 0 31.7l-25 25-13.9 14-11.5-7.2-6.2 6-6.5-6.5"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -582,7 +582,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             cy="24"
             r="2.9"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -590,7 +590,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <path
             d="M118.1 71.4 106.5 59.7 89 42.4 57.4 10.6a19 19 0 0 0-26.8 0L5 36l62.6 62.6 30.7-30.8L110 79.5l8.1-8.1Z"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="5"
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -598,7 +598,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <path
             d="M78.2 88 22 31.8"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="5"
             strokeLinejoin="round"
           />
@@ -645,7 +645,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M0 50.1h43.3l5.6 7.3 19.6-43.8 25 73 19.1-43.8 5.9 7.3h43"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -667,7 +667,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
         >
           <path
             d="M68 159.5h62"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -685,7 +685,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <circle cx="99" cy="53" r="12" fill="#fff" strokeWidth="0" />
           <path
             d="M78 149.5h42M5 99 95.5 8.5c2-2 5-2 7 0L193 99"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -707,7 +707,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
         >
           <path
             d="M15.1 90.9 69 37.1M22.2 108.9 69 62M31.3 124.7l37.1-37.1M46.5 134.5 71 110M133.7 47.3 97.4 11M132.8 71.4 74.7 13.3M127.3 90.9 73.5 37.1"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -733,7 +733,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M71 10c-20.7 0-41 2-60.6 5.8v50.4a83.2 83.2 0 0 0 60.6 80c35-9.8 60.6-41.9 60.6-80V15.8A321.1 321.1 0 0 0 71 10ZM71 10v136.3M10.4 70.4h121.2"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -796,7 +796,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M59.7 79.3a27.3 27.3 0 1 1-54.7 0M183.7 79.3a27.3 27.3 0 1 1-54.7 0"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -826,7 +826,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M82.3 66.4 56.5 22.9 30.8 66.4l13.9 5.8 13.5-5.8 8.7 4.5 15.4-4.5zM145.1 57.8 117 10.4l-11.2 22-5.5-3-16.8 28.4 16.6 6.9 16.2-6.9 10.5 5.4 18.3-5.4z"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -856,14 +856,14 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M86.7 31.1h20V131h-76v-11.7M30.7 31.1h24"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M86.7 31h20s0 55.8-25.7 88.3H5C30.7 88.8 30.7 31 30.7 31h24"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
@@ -908,7 +908,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M149.2 143.5c2.4-3.5 3.8-7.7 3.8-12.3M106 153h25.2c2.5 0 4.8-.4 7-1.1M153 95.9V28.8c0-12-9.8-21.8-21.8-21.8H28.8C16.8 7 7 16.7 7 28.8v102.4c0 12 9.7 21.8 21.8 21.8H99"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -937,21 +937,21 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             cx="66"
             cy="72"
             r="5.3"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M69.2 39.2 66 39a33 33 0 1 0 32.8 29.8"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="M80 12.6A61 61 0 1 0 125.3 58"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
@@ -1012,14 +1012,14 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             cx="100.3"
             cy="53.4"
             r="48.4"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
           />
           <path
             d="M72.5 36.8c3.1-5.3 7.8-9.6 13.2-12.4M90.6 22.4c3-1 6.3-1.4 9.7-1.4M106.9 21.6l4 1.1"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -1051,7 +1051,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M149.2 143.5c2.4-3.5 3.8-7.7 3.8-12.3M106 153h25.2c2.5 0 4.8-.4 7-1.1M153 95.9V28.8c0-12-9.8-21.8-21.8-21.8H28.8C16.8 7 7 16.7 7 28.8v102.4c0 12 9.7 21.8 21.8 21.8H99"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
@@ -1098,7 +1098,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           <path
             d="M83.3 69.1 7 38 83.3 7l76.4 31-76.4 31.1z"
             fill="none"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeLinejoin="round"
             strokeWidth="4"
           />
@@ -1119,7 +1119,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
         >
           <path
             d="M106 153h25.2c2.5 0 4.8-.4 7-1.1"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
           />
@@ -1134,7 +1134,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M149.2 143.5c2.4-3.5 3.8-7.7 3.8-12.3M153 95.9V28.8c0-12-9.8-21.8-21.8-21.8H28.8C16.8 7 7 16.7 7 28.8v102.4c0 12 9.7 21.8 21.8 21.8H99"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
           />
@@ -1168,7 +1168,7 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             cx="61.7"
             cy="61.7"
             r="54.7"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
@@ -1179,14 +1179,14 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
             rx="54.7"
             ry="29"
             transform="rotate(-45 61.7 61.7)"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
           />
           <path
             d="m23 23 77.3 77.3"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeLinejoin="round"
             fill="none"
@@ -1216,21 +1216,21 @@ const Svg = ({ name = null, width = "auto", height = "auto" }) => {
           />
           <path
             d="M113.2 54a53.3 53.3 0 1 0-99.1 32.8l46.2 86.7 38.3-71.9"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
           />
           <path
             d="M112 72.9c1-4 1.6-8.3 1.6-12.6"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"
           />
           <path
             d="M106.5 86.9c1.1-2 2.1-4 3-6.1"
-            stroke="#00cd78"
+            stroke="#00663C"
             strokeWidth="4"
             strokeMiterlimit="4"
             fill="none"

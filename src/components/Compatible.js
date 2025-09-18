@@ -2,31 +2,25 @@ import React from "react";
 import { useGlobal } from "../data/useContext";
 import { groupBrandsAlphabetically, slugify } from "../data/functions";
 
-const Brands = () => {
+const Compatible = () => {
   const { settings, context } = useGlobal();
   const options = (settings[context?.type] || [])?.find(
-    (e) => e?.id === "Brands"
+    (e) => e?.id === "Compatible"
   );
-  let brands;
-  if (context?.type === "brand") {
-    brands = groupBrandsAlphabetically(context?.models?.map((e) => e));
-  } else {
-    brands = groupBrandsAlphabetically(settings?.brandListType0);
-  }
+  const brands = groupBrandsAlphabetically(
+    settings?.catalog?.brands?.map((e) => e?.name)
+  );
 
-  console.log(settings, context, brands);
   return (
     <section className="bg-white">
       <div className="container cont-space">
         <p className="subtitle">{options?.subTitle}</p>
-        <h2>{options?.title?.replace("###", context?.brand)}</h2>
-        {options?.content && (
-          <p>
-            {options?.content
-              ?.replace("###", context?.brand)
-              ?.replace("###", context?.brand)
-              ?.replace("###", context?.brand)}
-          </p>
+        <h2>{options?.title}</h2>
+        {options?.content?.split("###")[0] && (
+          <p>{options?.content?.split("###")[0]}</p>
+        )}
+        {options?.content?.split("###")[1] && (
+          <p>{options?.content?.split("###")[1]}</p>
         )}
         <div className="d-grid grid-3 gap-4 mt-5">
           {brands?.map((e, i) => {
@@ -59,12 +53,7 @@ const Brands = () => {
                     {e?.items?.map((h, u) => {
                       return (
                         <li key={u}>
-                          <a
-                            href={`${
-                              context?.brandSlug ? `/${context?.brandSlug}` : ""
-                            }/${slugify(h)}/`}
-                            className="pv-1 block"
-                          >
+                          <a href={`/${slugify(h)}/`} className="pv-1 block">
                             {h}
                           </a>
                         </li>
@@ -84,4 +73,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default Compatible;

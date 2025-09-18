@@ -1,11 +1,10 @@
 import React from "react";
 import { useGlobal } from "../data/useContext";
-import Svg from "./Svg";
 
-const WhyUs = () => {
+const SimilarLast = () => {
   const { settings, context } = useGlobal();
   const options = (settings[context?.type] || [])?.find(
-    (e) => e?.id === "WhyUs"
+    (e) => e?.id === "SimilarLast"
   );
   return (
     <section className="bg-light">
@@ -18,18 +17,12 @@ const WhyUs = () => {
         {options?.content?.split("###")[1] && (
           <p>{options?.content?.split("###")[1]}</p>
         )}
-        <div className="d-grid grid-2 gap-4 mt-5 content">
-          {options?.list?.map((e, i) => {
+        <div className="d-flex flex-wrap mt-5 gap-2">
+          {settings?.catalog?.codesData?.slice(0, 100).map((e, i) => {
             return (
-              <div className="d-flex items-start" key={i}>
-                <div>
-                  <Svg name={e?.src} width="40px" height="40px" />
-                </div>
-                <div className="d-flex flex-col pl-3">
-                  <h3>{e?.title}</h3>
-                  <p dangerouslySetInnerHTML={{ __html: e?.content }} />
-                </div>
-              </div>
+              <a className="btx-no" key={i} href={`/${e?.code}/`}>
+                {e?.code}
+              </a>
             );
           })}
         </div>
@@ -38,4 +31,4 @@ const WhyUs = () => {
   );
 };
 
-export default WhyUs;
+export default SimilarLast;

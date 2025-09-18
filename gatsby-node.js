@@ -13,105 +13,41 @@ if (!admin.apps.length) {
 }
 const db = admin.firestore();
 
-function normalize(str) {
-  if (!str) return "";
-  // Normalize dash variants → "-"
-  str = str.replace(/[\u2010-\u2015\u2212]/g, "-");
-  // Remove spaces around hyphens: "E - Class" → "E-Class", "2003 - 2009" → "2003-2009"
-  str = str.replace(/\s*-\s*/g, "-");
-  // Collapse spaces, trim, drop trailing commas
-  str = str.replace(/\s+/g, " ").trim().replace(/,+$/, "");
-  return str;
+const slugify = (s) =>
+  String(s || "")
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+async function fetchAllBatches(q, batchSize = 300) {
+  let results = [];
+  let lastDoc = null;
+  let query = q;
+  if (
+    !(
+      q._queryOptions &&
+      q._queryOptions.orderBy &&
+      q._queryOptions.orderBy.length
+    )
+  ) {
+    query = q.orderBy(admin.firestore.FieldPath.documentId());
+  }
+  while (true) {
+    let page = query.limit(batchSize);
+    if (lastDoc) page = page.startAfter(lastDoc);
+    const snap = await page.get();
+    if (snap.empty) break;
+    snap.forEach((d) => results.push(d));
+    lastDoc = snap.docs[snap.docs.length - 1];
+    if (snap.size < batchSize) break;
+  }
+  return results;
 }
 
-function parseComp(entry) {
-  const s = normalize(entry);
-  const i = s.indexOf(" ");
-  if (i <= 0) return null;
-  const brand = s.slice(0, i).trim();
-  const model = s.slice(i + 1).trim();
-  if (!brand || !model) return null;
-  return { brand, model };
-}
-
-function slugify(segment) {
-  return encodeURI(
-    String(segment)
-      .toLowerCase()
-      .replace(/[()]/g, "") // drop parentheses
-      .replace(/[^\w\- ]+/g, "") // keep word chars, dash, space
-      .replace(/\s+/g, "-") // spaces -> dashes
-      .replace(/-+/g, "-") // collapse dashes
-      .replace(/^-|-$/g, "") // trim ends
-  );
-}
-
-let codesAndCatalogPromise;
-
-async function getCodesAndCatalog() {
-  if (codesAndCatalogPromise) return codesAndCatalogPromise;
-
-  codesAndCatalogPromise = (async () => {
-    const brandMap = {};
-    const modelMap = {};
-    const codesData = [];
-
-    const snapshot = await db.collection("A_codes").get();
-
-    snapshot.forEach((doc) => {
-      const data = doc.data() || {};
-      const code = String(data.code || data.cod || doc.id).trim();
-      if (!code) return;
-
-      const comp = Array.isArray(data.comp) ? data.comp : [];
-      const products = Array.isArray(data.products) ? data.products : [];
-      const content = data?.content ?? null;
-      const update =
-        data?.update?.toDate?.()?.getTime?.() ??
-        data?.updatedAt?.toDate?.()?.getTime?.() ??
-        null;
-
-      codesData.push({ code, comp, products, content, update });
-
-      comp.forEach((entry) => {
-        const parsed = parseComp(entry);
-        if (!parsed) return;
-        const { brand, model } = parsed;
-
-        if (!brandMap[brand]) {
-          brandMap[brand] = {
-            name: brand,
-            codes: new Set(),
-            models: new Set(),
-          };
-        }
-        brandMap[brand].codes.add(code);
-        brandMap[brand].models.add(model);
-
-        const key = `${brand}::${model}`;
-        if (!modelMap[key]) {
-          modelMap[key] = { name: model, brand, codes: new Set() };
-        }
-        modelMap[key].codes.add(code);
-      });
-    });
-
-    const brands = Object.values(brandMap).map((b) => ({
-      name: b.name,
-      codes: Array.from(b.codes).sort(),
-      models: Array.from(b.models).sort(),
-    }));
-    const models = Object.values(modelMap).map((m) => ({
-      name: m.name,
-      brand: m.brand,
-      codes: Array.from(m.codes).sort(),
-    }));
-
-    return { codesData, brands, models };
-  })();
-
-  return codesAndCatalogPromise;
-}
+const SEARCH_CODES = new Set();
 
 exports.sourceNodes = async ({
   actions,
@@ -119,23 +55,58 @@ exports.sourceNodes = async ({
   createContentDigest,
 }) => {
   const { createNode } = actions;
+  const collections = (process.env.COLLECTIONS_NODE || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
 
-  // Build once here so we can put catalog into settings
-  const { codesData, brands, models } = await getCodesAndCatalog();
-  const catalog = { brands, models, codesData };
+  async function fetchLatest200RapidCodes() {
+    let ref = db
+      .collection("A_oem")
+      .where("rapid", "==", 1)
+      .orderBy("update", "desc")
+      .limit(200);
+    const snap = await ref.get();
+    const arr = [];
+    snap.forEach((d) => {
+      const data = d.data() || {};
+      const code = d.id || data.code || "";
+      if (code) arr.push(code);
+    });
+    return arr;
+  }
 
-  const collections = process.env.COLLECTIONS_NODE.split(",");
+  async function fetchBrandNamesType0() {
+    let ref = db.collection("A_brand").where("type", "==", 0);
+    const docs = await fetchAllBatches(ref, 300);
+    const names = [];
+    for (const d of docs) {
+      const data = d.data() || {};
+      if (data.brand) names.push(String(data.brand));
+    }
+    return Array.from(new Set(names)).sort((a, b) => a.localeCompare(b));
+  }
+
+  let latestRapid200 = [];
+  let brandListType0 = [];
+  try {
+    [latestRapid200, brandListType0] = await Promise.all([
+      fetchLatest200RapidCodes(),
+      fetchBrandNamesType0(),
+    ]);
+  } catch (e) {
+    reporter.warn(
+      `Failed to prefetch homepage context data: ${e.message || e}`
+    );
+  }
+
   for (const collection of collections) {
     try {
-      const snapshot = await db
-        .collection(collection)
-        .where("s", "==", parseInt(process.env.SUBID))
-        .get();
+      let ref = db.collection(collection);
+      const snapshot = await ref.get();
 
       snapshot.forEach((doc) => {
         const data = doc.data() || {};
-
-        // For settings collections, inject catalog into settings before stringifying
         if (collection.endsWith("settings") && data.settings) {
           if (typeof data.settings === "string") {
             try {
@@ -144,12 +115,10 @@ exports.sourceNodes = async ({
               data.settings = { raw: String(data.settings) };
             }
           }
-          if (typeof data.settings === "object" && data.settings) {
-            data.settings.catalog = catalog;
-          }
-          data.settings = JSON.stringify(data.settings); // keep your original behavior
+          data.settings.latestRapid200 = latestRapid200;
+          data.settings.brandListType0 = brandListType0;
+          data.settings = JSON.stringify(data.settings);
         }
-
         createNode({
           ...data,
           id: createNodeId(`${collection}-${doc.id}`),
@@ -174,10 +143,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const template = path.resolve(`./src/templates/index.js`);
 
-  // Build codes + catalog (no cache)
-  const { codesData, brands, models } = await getCodesAndCatalog();
-
-  // 1) CMS pages
   const result = await graphql(`
     {
       allApages {
@@ -189,10 +154,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   `);
   if (result.errors) throw result.errors;
-
   const pages = result.data?.allApages?.nodes || [];
 
-  // Other CMS pages
   pages.forEach((p) => {
     if (p.slug !== "/" && p.slug !== "404") {
       createPage({
@@ -201,70 +164,150 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         context: {
           slug: p.slug,
           type: p.type,
-          // If you want catalog everywhere, you can also pass it here.
         },
       });
     }
   });
 
-  // 2) Code pages
-  codesData.forEach(({ code, comp, products, content, update }) => {
-    createPage({
-      path: `/${slugify(code)}/`,
-      component: template,
-      context: {
-        type: "code",
-        code,
-        comp,
-        products,
-        content,
-        update,
-      },
-    });
-  });
+  try {
+    let ref = db.collection("A_brand").where("type", "==", 0);
+    const brandDocs = await fetchAllBatches(ref, 300);
+    for (const d of brandDocs) {
+      const data = d.data() || {};
+      const brand = String(data.brand || "").trim();
+      if (!brand) continue;
+      const brandSlug = slugify(brand);
+      createPage({
+        path: `/${brandSlug}/`,
+        component: template,
+        context: {
+          type: "brand",
+          brand,
+          brandSlug,
+          update:
+            data.update && data.update.toMillis ? data.update.toMillis() : null,
+          models: Array.isArray(data.models) ? data.models : [],
+        },
+      });
+    }
+    ref = db.collection("A_brand").where("type", "==", 1);
+    const modelDocs = await fetchAllBatches(ref, 300);
+    for (const d of modelDocs) {
+      const data = d.data() || {};
+      const brand = String(data.brand || "").trim();
+      const name = String(data.name || "").trim();
+      if (!brand || !name) continue;
+      const brandSlug = slugify(brand);
+      const modelSlug = slugify(name);
+      createPage({
+        path: `/${brandSlug}/${modelSlug}/`,
+        component: template,
+        context: {
+          type: "model",
+          brand,
+          brandSlug,
+          name,
+          modelSlug,
+          update:
+            data.update && data.update.toMillis ? data.update.toMillis() : null,
+          codes: Array.isArray(data.codes) ? data.codes : [],
+        },
+      });
+    }
+  } catch (e) {
+    reporter.warn(`A_brand build error: ${e.message || e}`);
+  }
 
-  // 3) Brand pages (optional but handy)
-  brands.forEach((b) => {
-    createPage({
-      path: `/${slugify(b.name)}/`,
-      component: template,
-      context: {
-        type: "brand",
-        brand: b.name,
-        codes: b.codes,
-        models: b.models,
-      },
-    });
-  });
+  try {
+    let ref = db
+      .collection("A_oem")
+      .where("rapid", "==", 1)
+      .orderBy("update", "desc");
+    const docs = await fetchAllBatches(ref, 300);
+    let c3 = 0;
+    for (const d of docs) {
+      const data = d.data() || {};
+      const code = d.id || data.code || "";
+      if (!code) continue;
 
-  // 4) Brand + Model pages
-  models.forEach((m) => {
-    const brandSlug = slugify(m.brand);
-    const modelSlug = slugify(m.name);
-    createPage({
-      path: `/${brandSlug}/${modelSlug}/`,
-      component: template,
-      context: {
-        type: "model",
-        brand: m.brand,
-        model: m.name,
-        codes: m.codes,
-      },
-    });
-  });
-
-  reporter.info(
-    `Created: ${codesData.length} code pages, ${brands.length} brand pages, ${models.length} brand-model pages.`
-  );
+      SEARCH_CODES.add(code);
+      createPage({
+        path: `/${code}/`,
+        component: template,
+        context: {
+          type: "code",
+          code,
+          update:
+            data.update && data.update.toMillis ? data.update.toMillis() : null,
+          cars: Array.isArray(data.cars) ? data.cars : [],
+          image: data.image || null,
+          manufacture: data.manufacture || data.manufacturer || "",
+          productName: data.productName || "",
+          volume: data.volume || "",
+        },
+      });
+    }
+  } catch (e) {
+    reporter.warn(`A_oem build error: ${e.message || e}`);
+  }
 };
 
-exports.onPostBuild = async ({ graphql }) => {
-  const { codesData } = await getCodesAndCatalog();
+// exports.onPostBuild = async () => {
+//   try {
+//     const outDir = path.join(__dirname, "public", "search-codes");
+//     fs.mkdirSync(outDir, { recursive: true });
 
-  const index = codesData?.map((node) => slugify(node.code));
+//     const codes = Array.from(SEARCH_CODES);
+//     const alnumLower = (s) =>
+//       String(s || "")
+//         .toLowerCase()
+//         .replace(/[^a-z0-9]/g, "");
 
-  fs.writeFileSync(
-    path.join(__dirname, "public/search-index.json"),
-    JSON.stringify(index)
-  );
-};
+//     const shardMap = new Map();
+//     const samplesMap = new Map();
+
+//     for (const code of codes) {
+//       const norm = alnumLower(code);
+//       const first = norm[0] || "z";
+//       const second = norm[1] || "z";
+//       const prefix = `${first}${second}`;
+
+//       if (!shardMap.has(prefix)) shardMap.set(prefix, []);
+//       shardMap.get(prefix).push(code);
+
+//       if (!samplesMap.has(first)) samplesMap.set(first, []);
+//       const bucket = samplesMap.get(first);
+//       if (bucket.length < 20) bucket.push(code);
+//     }
+
+//     const prefixes = [];
+//     for (const [pre, arr] of shardMap.entries()) {
+//       fs.writeFileSync(
+//         path.join(outDir, `${pre}.json`),
+//         JSON.stringify(arr),
+//         "utf8"
+//       );
+//       prefixes.push({ prefix: pre, count: arr.length });
+//     }
+
+//     const CHARS = [..."abcdefghijklmnopqrstuvwxyz", ..."0123456789"];
+//     const samplesByChar = CHARS.map((ch) => ({
+//       char: ch,
+//       list: (samplesMap.get(ch) || []).slice(0, 20),
+//     }));
+
+//     const master = { prefixes, samplesByChar };
+//     fs.writeFileSync(
+//       path.join(__dirname, "public", "search-index.json"),
+//       JSON.stringify(master),
+//       "utf8"
+//     );
+//   } catch (e) {
+//     console.error("onPostBuild search index error:", e.message || e);
+//     fs.writeFileSync(
+//       path.join(__dirname, "public", "search-index.json"),
+//       JSON.stringify({ prefixes: [], samplesByChar: [] }),
+//       "utf8"
+//     );
+//   }
+// };

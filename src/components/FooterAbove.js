@@ -3,9 +3,9 @@ import { useGlobal } from "../data/useContext";
 
 const FooterAbove = () => {
   const { settings, context } = useGlobal();
-  const options = settings["footerAbove"] || {};
-  if (context?.slug === "selection-process") return null;
-  if (context?.type === "content" || context?.type === "form") return null;
+  const options = (settings[context?.type] || [])?.find(
+    (e) => e?.id === "FooterAbove"
+  );
   return (
     <section className="bg-white">
       <div className="container cont-space">
@@ -17,10 +17,10 @@ const FooterAbove = () => {
         {options?.content?.split("###")[1] && (
           <p>{options?.content?.split("###")[1]}</p>
         )}
-        <div className="d-flex mt-5">
+        <div className="d-flex mt-5 justify-center">
           <a
-            className="italic inColor underline"
-            href={options?.buttonLink}
+            className="btx d-flex justify-center items-center gap-3 rounded-full"
+            href="/become-a-seller/"
             aria-label={options?.buttonText}
           >
             {options?.buttonText}
