@@ -37,7 +37,7 @@ const COMPONENT_MAP = {
 export default function Template({ pageContext }) {
   const { allData } = useStatic(pageContext);
   const components = allData?.settings?.[pageContext?.type] || [];
-  console.log(allData);
+  // console.log(allData);
   return (
     <GlobalProvider value={allData}>
       <Header />

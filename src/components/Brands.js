@@ -14,7 +14,7 @@ const Brands = () => {
     brands = groupBrandsAlphabetically(settings?.brandListType0);
   }
 
-  console.log(settings, context, brands);
+  // console.log(settings, context, brands);
   return (
     <section className="bg-white">
       <div className="container cont-space">
