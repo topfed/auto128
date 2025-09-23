@@ -19,14 +19,25 @@ const CodesLast = () => {
               ?.replace("###", context?.brand)}
           </p>
         )}
-        <div className="d-flex flex-wrap mt-5 gap-2">
-          {settings?.catalog?.codesData?.slice(0, 100).map((e, i) => {
-            return (
-              <a className="btx-no" key={i} href={`/${e?.code}/`}>
-                {e?.code}
-              </a>
-            );
-          })}
+        <input
+          type="text"
+          id="searchInput"
+          placeholder={options?.filterText}
+          className="mobile-only w-100"
+        />
+        <div className="overflow-scroll col-12">
+          <div
+            className="d-flex flex-wrap mt-3 mb-3 gap-2"
+            style={{ width: "1200px" }}
+          >
+            {settings?.latestRapid200?.slice(0, 100).map((e, i) => {
+              return (
+                <a className="btx-no" key={i} href={`/${e}/`}>
+                  {e}
+                </a>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

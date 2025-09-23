@@ -103,9 +103,126 @@ export const slugify = (segment) => {
     String(segment)
       .toLowerCase()
       .replace(/[()]/g, "") // drop parentheses
-      .replace(/[^\w\- ]+/g, "") // keep word chars, dash, space
-      .replace(/\s+/g, "-") // spaces -> dashes
-      .replace(/-+/g, "-") // collapse dashes
-      .replace(/^-|-$/g, "") // trim ends
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "")
   );
+};
+
+export const shuffleArray = (arr) => {
+  const copy = [...arr]; // avoid mutating the original
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]]; // swap
+  }
+  return copy;
+};
+
+export const formatBrandName = (brand) => {
+  // exceptions to keep uppercase
+  if (!brand) return "";
+  const exceptions = [
+    "AC",
+    "ARO",
+    "BAIC",
+    "BAW",
+    "BMW",
+    "BYD",
+    "CHANA",
+    "DFSK",
+    "FAW",
+    "FSO",
+    "GAZ",
+    "GMC",
+    "GME",
+    "GAC",
+    "HAVAL",
+    "IVECO",
+    "IZH",
+    "JAC",
+    "KTM",
+    "LDV",
+    "MAN",
+    "MG",
+    "MPM MOTORS",
+    "NAC IVECO (NAVECO)",
+    "NSU",
+    "ORA",
+    "QOROS",
+    "RAM",
+    "SAAB",
+    "SAIC",
+    "SEAT",
+    "SGMW",
+    "SKODA",
+    "SSANGYONG",
+    "TAGAZ",
+    "TATA",
+    "UAZ",
+    "VAUXHALL",
+    "VW",
+    "WEY",
+    "XPENG",
+    "ZAZ",
+    "ZX AUTO",
+    "SVW",
+    "BBDC",
+    "FJDA",
+    "DFAC",
+  ];
+
+  const capitalizeWord = (word) =>
+    word
+      .split("-")
+      .map((w) =>
+        w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : ""
+      )
+      .join("-");
+
+  return brand
+    .split(/(\(.*?\))/g) // keep parentheses groups
+    .map((part) => {
+      if (part.startsWith("(") && part.endsWith(")")) {
+        // inside parentheses
+        const inside = part.slice(1, -1).trim();
+        const words = inside.split(" ").map((w) => {
+          if (exceptions.includes(w.toUpperCase())) {
+            return w.toUpperCase();
+          }
+          return capitalizeWord(w);
+        });
+        return `(${words.join(" ")})`;
+      } else {
+        // outside parentheses
+        const words = part.split(" ").map((w) => {
+          if (exceptions.includes(w.toUpperCase())) {
+            return w.toUpperCase();
+          }
+          return capitalizeWord(w);
+        });
+        return words.join(" ");
+      }
+    })
+    .join("")
+    .replace(/\s+/g, " ")
+    .trim();
+};
+
+export const formatManufacturersList = (manufacturers = []) => {
+  if (!Array.isArray(manufacturers) || manufacturers.length === 0) {
+    return "";
+  }
+
+  // apply brand formatting rules
+  const formatted = manufacturers.map(formatBrandName);
+
+  // slice based on length
+  if (formatted.length === 1) {
+    return formatted[0];
+  }
+  if (formatted.length === 2) {
+    return `${formatted[0]}, ${formatted[1]}`;
+  }
+  return formatted.slice(0, 4).join(", ");
 };

@@ -1,5 +1,6 @@
 import React from "react";
 import { useGlobal } from "../data/useContext";
+import { formatBrandName } from "../data/functions";
 
 const Hero = () => {
   const { settings, context, pages } = useGlobal();
@@ -13,21 +14,21 @@ const Hero = () => {
   if (type === "brand") {
     brandData.titleHero = settings["brand"][0]?.titleHero?.replace(
       "###",
-      context?.brand
+      formatBrandName(context?.brand)
     );
     brandData.subTitleHero = settings["brand"][0]?.subTitleHero?.replace(
       "###",
-      context?.brand
+      formatBrandName(context?.brand)
     );
   }
 
   if (type === "model") {
     modelData.titleHero = settings["model"][0]?.titleHero
-      ?.replace("###", context?.brand)
-      ?.replace("##", context?.name);
+      ?.replace("###", formatBrandName(context?.brand))
+      ?.replace("##", formatBrandName(context?.name));
     modelData.subTitleHero = settings["model"][0]?.subTitleHero
-      ?.replace("###", context?.brand)
-      ?.replace("##", context?.name);
+      ?.replace("###", formatBrandName(context?.brand))
+      ?.replace("##", formatBrandName(context?.name));
   }
 
   if (type === "code") {

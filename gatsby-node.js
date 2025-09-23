@@ -16,7 +16,6 @@ const db = admin.firestore();
 const slugify = (s) =>
   String(s || "")
     .toLowerCase()
-    .normalize("NFKD")
     .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
@@ -243,6 +242,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           image: data.image || null,
           manufacture: data.manufacture || data.manufacturer || "",
           productName: data.productName || "",
+          content: data.content || "",
+          products: data.products || "",
           volume: data.volume || "",
         },
       });
@@ -252,62 +253,62 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 };
 
-// exports.onPostBuild = async () => {
-//   try {
-//     const outDir = path.join(__dirname, "public", "search-codes");
-//     fs.mkdirSync(outDir, { recursive: true });
+exports.onPostBuild = async () => {
+  try {
+    const outDir = path.join(__dirname, "public", "search-codes");
+    fs.mkdirSync(outDir, { recursive: true });
 
-//     const codes = Array.from(SEARCH_CODES);
-//     const alnumLower = (s) =>
-//       String(s || "")
-//         .toLowerCase()
-//         .replace(/[^a-z0-9]/g, "");
+    const codes = Array.from(SEARCH_CODES);
+    const alnumLower = (s) =>
+      String(s || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
 
-//     const shardMap = new Map();
-//     const samplesMap = new Map();
+    const shardMap = new Map();
+    const samplesMap = new Map();
 
-//     for (const code of codes) {
-//       const norm = alnumLower(code);
-//       const first = norm[0] || "z";
-//       const second = norm[1] || "z";
-//       const prefix = `${first}${second}`;
+    for (const code of codes) {
+      const norm = alnumLower(code);
+      const first = norm[0] || "z";
+      const second = norm[1] || "z";
+      const prefix = `${first}${second}`;
 
-//       if (!shardMap.has(prefix)) shardMap.set(prefix, []);
-//       shardMap.get(prefix).push(code);
+      if (!shardMap.has(prefix)) shardMap.set(prefix, []);
+      shardMap.get(prefix).push(code);
 
-//       if (!samplesMap.has(first)) samplesMap.set(first, []);
-//       const bucket = samplesMap.get(first);
-//       if (bucket.length < 20) bucket.push(code);
-//     }
+      if (!samplesMap.has(first)) samplesMap.set(first, []);
+      const bucket = samplesMap.get(first);
+      if (bucket.length < 20) bucket.push(code);
+    }
 
-//     const prefixes = [];
-//     for (const [pre, arr] of shardMap.entries()) {
-//       fs.writeFileSync(
-//         path.join(outDir, `${pre}.json`),
-//         JSON.stringify(arr),
-//         "utf8"
-//       );
-//       prefixes.push({ prefix: pre, count: arr.length });
-//     }
+    const prefixes = [];
+    for (const [pre, arr] of shardMap.entries()) {
+      fs.writeFileSync(
+        path.join(outDir, `${pre}.json`),
+        JSON.stringify(arr),
+        "utf8"
+      );
+      prefixes.push({ prefix: pre, count: arr.length });
+    }
 
-//     const CHARS = [..."abcdefghijklmnopqrstuvwxyz", ..."0123456789"];
-//     const samplesByChar = CHARS.map((ch) => ({
-//       char: ch,
-//       list: (samplesMap.get(ch) || []).slice(0, 20),
-//     }));
+    const CHARS = [..."abcdefghijklmnopqrstuvwxyz", ..."0123456789"];
+    const samplesByChar = CHARS.map((ch) => ({
+      char: ch,
+      list: (samplesMap.get(ch) || []).slice(0, 20),
+    }));
 
-//     const master = { prefixes, samplesByChar };
-//     fs.writeFileSync(
-//       path.join(__dirname, "public", "search-index.json"),
-//       JSON.stringify(master),
-//       "utf8"
-//     );
-//   } catch (e) {
-//     console.error("onPostBuild search index error:", e.message || e);
-//     fs.writeFileSync(
-//       path.join(__dirname, "public", "search-index.json"),
-//       JSON.stringify({ prefixes: [], samplesByChar: [] }),
-//       "utf8"
-//     );
-//   }
-// };
+    const master = { prefixes, samplesByChar };
+    fs.writeFileSync(
+      path.join(__dirname, "public", "search-index.json"),
+      JSON.stringify(master),
+      "utf8"
+    );
+  } catch (e) {
+    console.error("onPostBuild search index error:", e.message || e);
+    fs.writeFileSync(
+      path.join(__dirname, "public", "search-index.json"),
+      JSON.stringify({ prefixes: [], samplesByChar: [] }),
+      "utf8"
+    );
+  }
+};

@@ -19,7 +19,7 @@ const FooterAbove = () => {
         )}
         <div className="d-flex mt-5 justify-center">
           <a
-            className="btx d-flex justify-center items-center gap-3 rounded-full"
+            className="btx d-flex justify-center items-center gap-3"
             href="/become-a-seller/"
             aria-label={options?.buttonText}
           >

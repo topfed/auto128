@@ -3,7 +3,7 @@ import { useGlobal } from "../data/useContext";
 import Svg from "./Svg";
 
 const Header = () => {
-  const { settings, context } = useGlobal();
+  const { settings, context, pages } = useGlobal();
   const options = settings["header"] || {};
   return (
     <header>
@@ -32,14 +32,14 @@ const Header = () => {
           />
           <ul id="searchResults"></ul>
           <ul id="menu">
-            {options?.nav?.slice(0, 7)?.map((e, i) => {
+            {settings?.latestRapid200?.slice(0, 10)?.map((e, i) => {
               return (
                 <li key={i}>
                   <a
-                    href={`/${e?.url}/`}
-                    className={context.slug === e?.url ? "active" : ""}
+                    href={`/${e}/`}
+                    className={context.slug === e ? "active" : ""}
                   >
-                    {e?.name}
+                    {e}
                   </a>
                 </li>
               );

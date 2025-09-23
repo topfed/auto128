@@ -1,15 +1,16 @@
 import React from "react";
+import { formatBrandName, formatManufacturersList } from "../data/functions";
 
 const Seo = ({ data, context }) => {
+  let ogUrl = process.env.PUBLIC_URL;
   const type = context?.type || "index";
   const slug = context?.slug || "/";
   const slugData = data?.pages?.find((e) => e?.slug === slug);
   const siteName = process.env.NAME;
   const language = process.env.LANGUAGE;
   const logoUrl = `${process.env.PUBLIC_URL}/logo.png`;
-  let placeData = {};
-  let ogUrl = process.env.PUBLIC_URL;
   let pageSchema = null;
+  let placeData = {};
   const brandData = {};
   const modelData = {};
   const codeData = {};
@@ -17,31 +18,31 @@ const Seo = ({ data, context }) => {
   if (type === "brand") {
     brandData.titleSEO = data?.settings["brand"][0]?.titleSEO?.replace(
       "###",
-      context?.brand
+      formatBrandName(context?.brand)
     );
     brandData.descSEO = data?.settings["brand"][0]?.descSEO
-      ?.replace("###", context?.brand)
-      ?.replace("###", context?.brand);
+      ?.replace("###", formatBrandName(context?.brand))
+      ?.replace("###", formatBrandName(context?.brand));
   }
 
   if (type === "model") {
     modelData.titleSEO = data?.settings["model"][0]?.titleSEO
-      ?.replace("###", context?.brand)
-      ?.replace("##", context?.name);
+      ?.replace("###", formatBrandName(context?.brand))
+      ?.replace("##", formatBrandName(context?.name));
     modelData.descSEO = data?.settings["model"][0]?.descSEO
-      ?.replace("###", context?.brand)
-      ?.replace("##", context?.name)
-      ?.replace("##", context?.name);
+      ?.replace("###", formatBrandName(context?.brand))
+      ?.replace("##", formatBrandName(context?.name))
+      ?.replace("##", formatBrandName(context?.name));
   }
 
   if (type === "code") {
-    codeData.titleSEO = data?.settings["code"][0]?.titleSEO?.replace(
-      "###",
-      context?.code
-    );
+    codeData.titleSEO = data?.settings["code"][0]?.titleSEO
+      ?.replace("###", context?.code)
+      ?.replace("##", formatManufacturersList(context?.manufacture));
     codeData.descSEO = data?.settings["code"][0]?.descSEO
-      ?.replace("###", 2)
-      ?.replace("##", "$49");
+      ?.replace("###", context?.code)
+      ?.replace("###", context?.code)
+      ?.replace("##", formatManufacturersList(context?.manufacture));
   }
 
   if (type === "place") {
