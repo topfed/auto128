@@ -10,7 +10,6 @@ const config = {
   },
   graphqlTypegen: true,
   plugins: [
-    `gatsby-plugin-minify`,
     {
       resolve: "gatsby-plugin-robots-txt",
       options: {

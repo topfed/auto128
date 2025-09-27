@@ -7,13 +7,14 @@ const Brands = () => {
   const options = (settings[context?.type] || [])?.find(
     (e) => e?.id === "Brands"
   );
-  let brands =
-    context?.type === "brand"
-      ? context?.models?.map((e) => e)
-      : settings?.brandListType0;
-
+  let brands = settings?.brandListType0;
+  if (context?.type === "brand") {
+    brands = brands?.filter((e) => e.name !== context?.name);
+  }
   return (
-    <section className="bg-white">
+    <section
+      className={`${context?.type === "index" ? "bg-white" : "bg-light"}`}
+    >
       <div className="container cont-space">
         <p className="subtitle">{options?.subTitle}</p>
         <h2>
@@ -22,34 +23,17 @@ const Brands = () => {
         {options?.content && (
           <p>
             {options?.content
-              ?.replace("###", formatBrandName(context?.brand))
-              ?.replace("###", formatBrandName(context?.brand))
-              ?.replace("###", formatBrandName(context?.brand))}
+              ?.replace("###", formatBrandName(context?.name))
+              ?.replace("###", formatBrandName(context?.name))
+              ?.replace("###", formatBrandName(context?.name))}
           </p>
         )}
-        <input
-          type="text"
-          id="searchInput"
-          placeholder={options?.filterText}
-          className="mobile-only w-100"
-        />
-        <div className="overflow-scroll col-12">
-          <div
-            className="d-flex flex-wrap mt-3 mb-3 gap-2"
-            style={{ width: "3000px" }}
-          >
+        <div className="col-12">
+          <div className="d-flex flex-wrap mb-3 gap-2 a-flex search">
             {brands?.map((e, i) => {
               return (
-                <a
-                  className="btx-no"
-                  key={i}
-                  href={
-                    context?.type === "brand"
-                      ? `/${context?.brandSlug}/${slugify(e)}/`
-                      : `/${slugify(e)}/`
-                  }
-                >
-                  {formatBrandName(e)}
+                <a className="btx-no" key={i} href={`/${slugify(e?.name)}/`}>
+                  {formatBrandName(e?.name)}
                 </a>
               );
             })}

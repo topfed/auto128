@@ -1,13 +1,13 @@
 import React from "react";
 import { useGlobal } from "../data/useContext";
 
-const FooterAbove = () => {
+const ForSellers = () => {
   const { settings, context } = useGlobal();
   const options = (settings[context?.type] || [])?.find(
-    (e) => e?.id === "FooterAbove"
+    (e) => e?.id === "ForSellers"
   );
   return (
-    <section className="bg-white">
+    <section className="bg-light">
       <div className="container cont-space">
         <p className="subtitle">{options?.subTitle}</p>
         <h2>{options?.title}</h2>
@@ -31,4 +31,4 @@ const FooterAbove = () => {
   );
 };
 
-export default FooterAbove;
+export default ForSellers;

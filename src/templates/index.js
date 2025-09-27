@@ -5,16 +5,13 @@ import Seo from "../components/Seo";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import FooterAbove from "../components/FooterAbove";
 import Content from "../components/Content";
-import Brands from "../components/Brands";
-import Code from "../components/Code";
-import CodesLast from "../components/CodesLast";
-import Compatible from "../components/Compatible";
-import Models from "../components/Models";
-import Products from "../components/Products";
-import SimilarLast from "../components/SimilarLast";
+import ForSellers from "../components/ForSellers";
 import WhyUs from "../components/WhyUs";
+import Brands from "../components/Brands";
+import Models from "../components/Models";
+import Codes from "../components/Codes";
+import Products from "../components/Products";
 import "../data/styles.css";
 
 const COMPONENT_MAP = {
@@ -22,22 +19,18 @@ const COMPONENT_MAP = {
   Header,
   Hero,
   Footer,
-  FooterAbove,
   Content,
-  Brands,
-  Code,
-  CodesLast,
-  Compatible,
-  Models,
-  Products,
-  SimilarLast,
+  ForSellers,
   WhyUs,
+  Brands,
+  Models,
+  Codes,
+  Products,
 };
 
 export default function Template({ pageContext }) {
   const { allData } = useStatic(pageContext);
   const components = allData?.settings?.[pageContext?.type] || [];
-  // console.log(allData);
   return (
     <GlobalProvider value={allData}>
       <Header />

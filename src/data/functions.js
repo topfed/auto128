@@ -102,12 +102,17 @@ export const slugify = (segment) => {
   return encodeURI(
     String(segment)
       .toLowerCase()
-      .replace(/[()]/g, "") // drop parentheses
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^\w\s-]/g, "")
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "")
   );
+};
+
+export const cleanModelNames = (model) => {
+  return model.split(/[\(\[\{_\/]/)[0].trim();
 };
 
 export const shuffleArray = (arr) => {
@@ -120,8 +125,10 @@ export const shuffleArray = (arr) => {
 };
 
 export const formatBrandName = (brand) => {
-  // exceptions to keep uppercase
-  if (!brand) return "";
+  if (brand == null) return ""; // handles null/undefined
+  const str = String(brand).trim();
+  if (!str) return "";
+
   const exceptions = [
     "AC",
     "ARO",
@@ -138,7 +145,7 @@ export const formatBrandName = (brand) => {
     "GME",
     "GAC",
     "HAVAL",
-    "IVECO",
+    "Iveco",
     "IZH",
     "JAC",
     "KTM",
@@ -151,16 +158,16 @@ export const formatBrandName = (brand) => {
     "ORA",
     "QOROS",
     "RAM",
-    "SAAB",
+    "Saab",
     "SAIC",
-    "SEAT",
+    "Seat",
     "SGMW",
-    "SKODA",
+    "Skoda",
     "SSANGYONG",
     "TAGAZ",
-    "TATA",
+    "Tata",
     "UAZ",
-    "VAUXHALL",
+    "Vauxhall",
     "VW",
     "WEY",
     "XPENG",
@@ -180,27 +187,27 @@ export const formatBrandName = (brand) => {
       )
       .join("-");
 
-  return brand
+  return str
     .split(/(\(.*?\))/g) // keep parentheses groups
     .map((part) => {
       if (part.startsWith("(") && part.endsWith(")")) {
-        // inside parentheses
         const inside = part.slice(1, -1).trim();
-        const words = inside.split(" ").map((w) => {
-          if (exceptions.includes(w.toUpperCase())) {
-            return w.toUpperCase();
-          }
-          return capitalizeWord(w);
-        });
+        const words = inside
+          .split(" ")
+          .map((w) =>
+            exceptions.includes(w.toUpperCase())
+              ? w.toUpperCase()
+              : capitalizeWord(w)
+          );
         return `(${words.join(" ")})`;
       } else {
-        // outside parentheses
-        const words = part.split(" ").map((w) => {
-          if (exceptions.includes(w.toUpperCase())) {
-            return w.toUpperCase();
-          }
-          return capitalizeWord(w);
-        });
+        const words = part
+          .split(" ")
+          .map((w) =>
+            exceptions.includes(w.toUpperCase())
+              ? w.toUpperCase()
+              : capitalizeWord(w)
+          );
         return words.join(" ");
       }
     })
@@ -225,4 +232,30 @@ export const formatManufacturersList = (manufacturers = []) => {
     return `${formatted[0]}, ${formatted[1]}`;
   }
   return formatted.slice(0, 4).join(", ");
+};
+
+export const prettifyEntry = (s) => {
+  // replace delimiter with space
+  let out = s.replace("###", " ");
+  // remove any (...) that does NOT start with a 4-digit year (e.g., (K0), (T5), etc.)
+  out = out.replace(/\s*\((?!\d{4})[^()]*\)/g, "");
+  // tidy spaces
+  return out.replace(/\s{2,}/g, " ").trim();
+};
+
+export const toBrandModelSlug = (s) => {
+  const [brandRaw, modelRaw = ""] = s.split("###");
+  const brand = (brandRaw || "").trim();
+  // remove ALL (...) parts (code + years) from model
+  const model = modelRaw.replace(/\s*\([^()]*\)/g, "").trim();
+
+  const slugify = (t) =>
+    t
+      .normalize("NFKD") // handle accents
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/gi, "-")
+      .replace(/^-+|-+$/g, "");
+
+  return `/${slugify(brand)}/${slugify(model)}/`;
 };

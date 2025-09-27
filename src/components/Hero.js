@@ -14,11 +14,11 @@ const Hero = () => {
   if (type === "brand") {
     brandData.titleHero = settings["brand"][0]?.titleHero?.replace(
       "###",
-      formatBrandName(context?.brand)
+      formatBrandName(context?.name)
     );
     brandData.subTitleHero = settings["brand"][0]?.subTitleHero?.replace(
       "###",
-      formatBrandName(context?.brand)
+      formatBrandName(context?.name)
     );
   }
 

@@ -26,6 +26,21 @@
 //   });
 // });
 
+document.querySelectorAll(".search").forEach((input) => {
+  const list = document.querySelector(input.dataset.target);
+  if (!list) return;
+  const links = list.querySelectorAll("a");
+  input.addEventListener("input", () => {
+    const val = input.value.toLowerCase();
+    links.forEach(
+      (a) =>
+        (a.style.display = a.textContent.toLowerCase().includes(val)
+          ? ""
+          : "none")
+    );
+  });
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   let i = [];
   let isSearchLoaded = false;

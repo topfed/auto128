@@ -18,11 +18,11 @@ const Seo = ({ data, context }) => {
   if (type === "brand") {
     brandData.titleSEO = data?.settings["brand"][0]?.titleSEO?.replace(
       "###",
-      formatBrandName(context?.brand)
+      formatBrandName(context?.name)
     );
     brandData.descSEO = data?.settings["brand"][0]?.descSEO
-      ?.replace("###", formatBrandName(context?.brand))
-      ?.replace("###", formatBrandName(context?.brand));
+      ?.replace("###", formatBrandName(context?.name))
+      ?.replace("###", formatBrandName(context?.name));
   }
 
   if (type === "model") {

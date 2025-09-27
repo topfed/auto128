@@ -32,14 +32,14 @@ const Header = () => {
           />
           <ul id="searchResults"></ul>
           <ul id="menu">
-            {settings?.latestRapid200?.slice(0, 10)?.map((e, i) => {
+            {options?.nav?.map((e, i) => {
               return (
                 <li key={i}>
                   <a
-                    href={`/${e}/`}
+                    href={`${e?.url}`}
                     className={context.slug === e ? "active" : ""}
                   >
-                    {e}
+                    {e?.name}
                   </a>
                 </li>
               );

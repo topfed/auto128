@@ -15,28 +15,32 @@ const Footer = () => {
             height={options?.logo?.height}
           />
           <p className="mt-4 mb-4">{options?.text}</p>
-          <div className="uppercase mt-3 mb-3 text-white">
-            {options?.socialTitle}
-          </div>
-          <div className="d-flex gap-2">
-            {options?.socialIcons?.map((e, i) => {
-              return (
-                <a
-                  aria-label={e.name}
-                  href={e?.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  key={i}
-                >
-                  <Svg
-                    name={e?.name}
-                    width={e?.icon?.width}
-                    height={e?.icon?.height}
-                  />
-                </a>
-              );
-            })}
-          </div>
+          {options?.socialActivate && (
+            <>
+              <div className="uppercase mt-3 mb-3 text-white">
+                {options?.socialTitle}
+              </div>
+              <div className="d-flex gap-2">
+                {options?.socialIcons?.map((e, i) => {
+                  return (
+                    <a
+                      aria-label={e.name}
+                      href={e?.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={i}
+                    >
+                      <Svg
+                        name={e?.name}
+                        width={e?.icon?.width}
+                        height={e?.icon?.height}
+                      />
+                    </a>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
         <div className="col-6 d-flex gap-5">
           <div className="col-12">
