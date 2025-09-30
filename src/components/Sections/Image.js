@@ -7,7 +7,11 @@ const Image = ({ data }) => {
     <img
       width={data?.width}
       height={data?.height}
-      src={cloudURL?.replace("###", encodeURIComponent(`trust/${data?.src}`))}
+      src={
+        data?.local
+          ? data?.src
+          : cloudURL?.replace("###", encodeURIComponent(`trust/${data?.src}`))
+      }
       alt={data?.alt}
       loading={data?.loading || "lazy"}
       decoding={data?.decoding || "async"}

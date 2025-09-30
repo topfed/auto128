@@ -125,7 +125,7 @@ export const shuffleArray = (arr) => {
 };
 
 export const formatBrandName = (brand) => {
-  if (brand == null) return ""; // handles null/undefined
+  if (brand == null) return "";
   const str = String(brand).trim();
   if (!str) return "";
 
@@ -179,37 +179,60 @@ export const formatBrandName = (brand) => {
     "DFAC",
   ];
 
-  const capitalizeWord = (word) =>
-    word
-      .split("-")
-      .map((w) =>
-        w ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : ""
-      )
-      .join("-");
+  const isRoman = (s) => {
+    const t = s.toUpperCase();
+    return (
+      /^[IVXLCDM]+$/.test(t) &&
+      /^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/.test(t)
+    );
+  };
+
+  const shouldKeepToken = (token) => {
+    // keep if roman numeral or 1–3 alpha chars
+    if (isRoman(token) || /^[A-Za-z]{1,3}$/.test(token)) return true;
+    // keep whole hyphenated if every part is roman or ≤3 alpha
+    const parts = token.split("-");
+    if (
+      parts.length > 1 &&
+      parts.every((p) => isRoman(p) || /^[A-Za-z]{1,3}$/.test(p))
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const capPart = (w) =>
+    w ? w[0].toUpperCase() + w.slice(1).toLowerCase() : "";
+
+  const formatWord = (w) => {
+    if (w.toLowerCase() === "e") return "E"; // <-- NEW rule
+    if (exceptions.includes(w.toUpperCase())) return w.toUpperCase();
+    if (shouldKeepToken(w)) return w;
+
+    if (w.includes("-")) {
+      return w
+        .split("-")
+        .map((sub) =>
+          sub.toLowerCase() === "e"
+            ? "E"
+            : shouldKeepToken(sub)
+            ? sub
+            : capPart(sub)
+        )
+        .join("-");
+    }
+
+    return capPart(w);
+  };
 
   return str
-    .split(/(\(.*?\))/g) // keep parentheses groups
-    .map((part) => {
-      if (part.startsWith("(") && part.endsWith(")")) {
-        const inside = part.slice(1, -1).trim();
-        const words = inside
-          .split(" ")
-          .map((w) =>
-            exceptions.includes(w.toUpperCase())
-              ? w.toUpperCase()
-              : capitalizeWord(w)
-          );
-        return `(${words.join(" ")})`;
-      } else {
-        const words = part
-          .split(" ")
-          .map((w) =>
-            exceptions.includes(w.toUpperCase())
-              ? w.toUpperCase()
-              : capitalizeWord(w)
-          );
-        return words.join(" ");
+    .split(/(\(.*?\))/g)
+    .map((chunk) => {
+      if (chunk.startsWith("(") && chunk.endsWith(")")) {
+        const inside = chunk.slice(1, -1).trim();
+        return `(${inside.split(/\s+/).map(formatWord).join(" ")})`;
       }
+      return chunk.split(/\s+/).map(formatWord).join(" ");
     })
     .join("")
     .replace(/\s+/g, " ")

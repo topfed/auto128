@@ -10,30 +10,29 @@ const Products = () => {
   const option = (settings[context?.type] || [])?.find(
     (e) => e?.id === "Products"
   );
+  const brandPublic = settings?.brandListType0?.map((e) => e?.name);
+  const manufacture = context?.manufacture?.filter((e) =>
+    brandPublic.includes(slugify(e))
+  );
   return (
     <section className="bg-white">
       <div className="container cont-space">
-        <p className="d-flex justify-center gap-1 text-14">
-          {option?.madeBy}
-          <strong>
-            {context?.manufacture?.map((e, i) => {
-              const isLast = i === context.manufacture.length - 1;
-              return (
-                <a
-                  key={i}
-                  href={
-                    context?.type === "brand"
-                      ? `/${context?.brandSlug}/${slugify(e)}/`
-                      : `/${slugify(e)}/`
-                  }
-                >
-                  {formatBrandName(e)}
-                  {!isLast && ", "}
-                </a>
-              );
-            })}
-          </strong>
-        </p>
+        {manufacture?.length > 0 && (
+          <p className="d-flex justify-center gap-1 text-14">
+            {option?.madeBy}
+            <strong>
+              {manufacture?.map((e, i) => {
+                const isLast = i === manufacture.length - 1;
+                return (
+                  <a key={i} href={`/${slugify(e)}/`}>
+                    {formatBrandName(e)}
+                    {!isLast && ", "}
+                  </a>
+                );
+              })}
+            </strong>
+          </p>
+        )}
         <h2 className="text-center">
           {option?.title?.replace("###", context?.code)}
         </h2>
@@ -74,14 +73,22 @@ const Products = () => {
             __html: context?.content || "",
           }}
         />
-        <div className="box-border mt-5">
+        <div className="mt-5 pv-3 text-center">
+          <h3
+            className="mt-3"
+            dangerouslySetInnerHTML={{
+              __html: settings["code"][0]?.subTitleHeroNo || "",
+            }}
+          />
           <p
+            className="mt-3"
             dangerouslySetInnerHTML={{
               __html:
                 option?.notAvalaible1?.replace("###", context?.code) || "",
             }}
           />
           <p
+            className="mt-3 mb-5"
             dangerouslySetInnerHTML={{
               __html:
                 option?.notAvalaible2?.replace("###", context?.code) || "",

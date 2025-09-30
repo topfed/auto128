@@ -17,7 +17,7 @@ const Codes = () => {
     title = options?.title;
     shortTitle = options?.subTitle;
     content = options?.content;
-    list = settings?.latestRapid200;
+    list = settings?.latestRapid200?.slice(-50);
   }
   if (context?.type === "brand") {
     title = options?.title?.replace("###", formatBrandName(context?.name));
@@ -26,8 +26,9 @@ const Codes = () => {
       ?.replace("###", formatBrandName(context?.name))
       ?.replace("###", formatBrandName(context?.name))
       ?.replace("###", formatBrandName(context?.name));
-    list = settings?.brandListType0?.filter((e) => e?.name === context?.name)[0]
-      ?.codes;
+    list = settings?.brandListType0
+      ?.filter((e) => e?.name === context?.name)[0]
+      ?.codes?.slice(-50);
   }
   if (context?.type === "model") {
     title = options?.title
@@ -60,38 +61,24 @@ const Codes = () => {
       ?.filter((e) => e?.name === brand)[0]
       ?.codes.slice(-50);
   }
-  // console.log(options, settings, context);
+  if (list?.length === 0) return null;
   return (
-    <section className="bg-white">
+    <section
+      className={`${context?.type !== "code" ? "bg-white" : "bg-light"}`}
+    >
       <div className="container cont-space">
-        <p className="subtitle">{shortTitle}</p>
-        <h2>{title}</h2>
-        {options?.content && <p>{content}</p>}
-        {list?.length > 20 && (
-          <input
-            type="text"
-            id="searchInput"
-            data-target="#search"
-            placeholder={options?.filterText}
-            className="w-100 mb-3"
-          />
-        )}
-        <div className={`${list?.length > 20 ? "overflow-shell" : ""}`}>
-          <div
-            className={`overflow-scroll col-12${
-              list?.length > 20 ? " h-350" : ""
-            }`}
-          >
-            <div className="d-flex flex-wrap mb-3 gap-2 a-flex pr-2 search">
-              {list?.map((e, i) => {
-                return (
-                  <a className="btx-no" key={i} href={`/${e}/`}>
-                    {e}
-                  </a>
-                );
-              })}
-            </div>
-          </div>
+        <p className="subtitle text-center">{shortTitle}</p>
+        <h2 className="text-center">{title}</h2>
+        {options?.content && <p className="text-center">{content}</p>}
+
+        <div className="d-flex flex-wrap mt-5 mb-3 gap-2 a-flex pr-2 search">
+          {list?.map((e, i) => {
+            return (
+              <a className="btx-no" key={i} href={`/${e}/`}>
+                <span className="code text-14">{e}</span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

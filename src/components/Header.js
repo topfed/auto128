@@ -3,7 +3,7 @@ import { useGlobal } from "../data/useContext";
 import Svg from "./Svg";
 
 const Header = () => {
-  const { settings, context, pages } = useGlobal();
+  const { settings, context } = useGlobal();
   const options = settings["header"] || {};
   return (
     <header>

@@ -26,8 +26,10 @@ const Models = () => {
       ?.replace("###", formatBrandName(context?.name))
       ?.replace("###", formatBrandName(context?.name))
       ?.replace("###", formatBrandName(context?.name));
-    list = settings?.brandListType0?.filter((e) => e?.name === context?.name)[0]
-      ?.models;
+    list = settings?.brandListType0
+      ?.filter((e) => e?.name === context?.name)[0]
+      ?.models?.slice() // make a shallow copy so you don’t mutate original
+      ?.sort((a, b) => a.localeCompare(b));
     brandSlug = context?.name;
   }
   if (context?.type === "model") {
@@ -60,60 +62,76 @@ const Models = () => {
         let compatible = e.split("###");
         let brand = slugify(compatible[0]);
         let slug = slugify(cleanModelNames(compatible[1]));
-        let model = cleanModelNames(compatible[1]);
-        if (brand === "alfa-romeo" || brand === "aston-martin") return null;
+        let model = compatible[1];
+        if (
+          brand === "alfa-romeo" ||
+          brand === "aston-martin" ||
+          brand === "land-rover"
+        )
+          return null;
         return {
           brand: brand,
-          name: formatBrandName(model),
+          name: `${brand} ${model}`,
           slug: slug,
         };
       })
-      ?.filter((e) => e);
-    brandSlug = context?.brand;
+      ?.filter((e) => e)
+      ?.sort((a, b) => a.name.localeCompare(b.name));
+    console.log(context);
+    console.log(settings);
   }
+  if (list?.length === 0) return null;
   return (
     <section
       className={
-        context?.type === "code" ? "bg-light" : context?.type === "code"
+        context?.type === "code" || context?.type === "model"
+          ? "bg-light"
+          : context?.type === "code"
       }
     >
       <div className="container cont-space">
-        <p className="subtitle">{shortTitle}</p>
-        <h2>{title}</h2>
-        {content && <p>{content}</p>}
-        {list?.length > 40 && (
-          <input
-            type="text"
-            id="searchInput"
-            data-target="#search"
-            placeholder={options?.filterText}
-            className="w-100 mb-3"
+        <p className="subtitle text-center">{shortTitle}</p>
+        <h2 className="text-center">{title}</h2>
+        {content && (
+          <p
+            className="text-center"
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
           />
         )}
-        <div className={`${list?.length > 40 ? "overflow-shell" : ""}`}>
+
+        <div className="col-12 clip">
+          <input id="t" type="checkbox" />
+
           <div
-            className={`overflow-scroll col-12${
-              list?.length > 40 ? " h-350" : ""
+            className={`d-flex ${
+              context?.type === "code" ? `flex-col` : `flex-wrap`
+            } mb-3 mt-5 gap-2 ${context?.type === "code" ? `` : `a-flex-2`} ${
+              list?.length > 20 ? `contentClip` : ``
             }`}
           >
-            <div className="d-flex flex-wrap mb-3 gap-2 a-flex-2 pr-2 search">
-              {list?.map((e, i) => {
-                return (
-                  <a
-                    className="btx-no"
-                    key={i}
-                    href={
-                      context?.type === "code"
-                        ? `/${e?.brand}/${e?.slug}/`
-                        : `/${slugify(brandSlug)}/${slugify(e)}/`
-                    }
-                  >
-                    {context?.type === "code" ? e?.name : e}
-                  </a>
-                );
-              })}
-            </div>
+            {list?.map((e, i) => {
+              return (
+                <a
+                  className="btx-no"
+                  key={i}
+                  href={
+                    context?.type === "code"
+                      ? `/${e?.brand}/${e?.slug}/`
+                      : `/${slugify(brandSlug)}/${slugify(e)}/`
+                  }
+                >
+                  {formatBrandName(context?.type === "code" ? e?.name : e)}
+                </a>
+              );
+            })}
           </div>
+          {list?.length > 20 && (
+            <label htmlFor="t" className="italic">
+              {options?.buttonText}
+            </label>
+          )}
         </div>
       </div>
     </section>

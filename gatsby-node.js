@@ -112,6 +112,7 @@ exports.sourceNodes = async ({
           name,
           models: uniqueModels,
           codes: uniqueCodes,
+          group: data?.group,
         });
       }
     }
@@ -250,7 +251,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     let ref = db
       .collection("A_oem")
       .where("rapid", "==", 4)
-      .orderBy("update", "desc");
+      .orderBy("update", "desc")
+      .limit(100);
     const docs = await fetchAllBatches(ref, 300);
     let c3 = 0;
     for (const d of docs) {
