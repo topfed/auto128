@@ -60,14 +60,18 @@ const Brands = () => {
           {options?.title?.replace("###", formatBrandName(context?.brand))}
         </h2>
         {options?.content && (
-          <p className="text-center">{contentBasic?.content}</p>
+          <p className="text-center">
+            {contentBasic?.content || options?.content}
+          </p>
         )}
         <div className="col-12 clip">
           <input id="t" type="checkbox" />
           <div
             className={`d-grid ${
               brands?.length > 10 ? `grid-8` : `grid-4`
-            } mb-3 mt-5 gap-2 ${brands?.length > 20 ? `contentClip` : ``}`}
+            } mb-3 mt-5 gap-2 ${brands?.length > 20 ? `contentClip` : ``} ${
+              brands?.length > 20 ? `endGrad` : ``
+            }`}
           >
             {brands?.map((e, i) => {
               return (

@@ -105,14 +105,16 @@ const Models = () => {
           <div
             className={`d-flex ${
               context?.type === "code" ? `flex-col` : `flex-wrap`
-            } mb-3 mt-5 gap-2 ${context?.type === "code" ? `` : `a-flex-2`} ${
-              list?.length > 20 ? `contentClip` : ``
-            } ${context?.type === "model" ? `endGrad2` : `endGrad`}`}
+            } mb-3 mt-5 ${context?.type === "code" ? `` : `gap-2`} ${
+              context?.type === "code" ? `` : `a-flex-2`
+            } ${list?.length > 20 ? `contentClip` : ``} ${
+              context?.type === "model" ? `endGrad2` : ``
+            } ${context?.type === "code" ? `endGrad2` : ``}`}
           >
             {list?.map((e, i) => {
               return (
                 <a
-                  className="btx-no"
+                  className={`btx-no ${context?.type === "code" ? "bb" : ``}`}
                   key={i}
                   href={
                     context?.type === "code"

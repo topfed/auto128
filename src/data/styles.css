@@ -164,6 +164,9 @@ h6 {
   margin: 0 auto;
   padding: 0 var(--space-3);
 }
+.w-max {
+  max-width: var(--max-width);
+}
 .cont-space {
   padding: 64px 24px;
 }
@@ -303,6 +306,9 @@ h6 {
 }
 
 /* ===== SPACING UTILITIES ===== */
+.m-c {
+  margin: 0 auto;
+}
 .m-0 {
   margin: 0;
 }
@@ -759,7 +765,6 @@ a.active {
   cursor: pointer;
   border-radius: 4px;
   max-width: 250px;
-  margin: 0 auto;
 }
 .btx:hover {
   opacity: 0.9;
@@ -767,10 +772,15 @@ a.active {
 }
 .btx-no {
   border: var(--bs);
-  padding: 6px 16px;
+  padding: 8px 16px;
   cursor: pointer;
   border-radius: 4px;
   text-decoration: none;
+}
+.btx-no.bb {
+  border: none;
+  border-bottom: var(--bs);
+  border-radius: 0;
 }
 .a-flex .btx-no {
   flex: auto;
@@ -935,6 +945,9 @@ footer a:hover {
   justify-content: center;
   background: #ffffff;
 }
+.clip {
+  position: relative;
+}
 .clip input {
   display: none;
 }
@@ -966,7 +979,10 @@ footer a:hover {
   max-height: fit-content;
   opacity: 1;
 }
-.clip input:checked ~ .contentClip::after {
+.clip input:checked ~ .endGrad::after {
+  display: none;
+}
+.clip input:checked ~ .endGrad2::after {
   display: none;
 }
 .clip label {
@@ -1074,7 +1090,7 @@ input[type="checkbox"]:checked ~ .accordion {
     transform: none !important;
   }
 }
-@media (min-width: 990px) {
+/* @media (min-width: 990px) {
   header .container {
     height: 80px;
   }
@@ -1106,4 +1122,4 @@ input[type="checkbox"]:checked ~ .accordion {
   .box-border {
     padding: 24px;
   }
-}
+} */

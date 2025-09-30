@@ -73,7 +73,7 @@ const Products = () => {
             __html: context?.content || "",
           }}
         />
-        <div className="mt-5 pv-3 text-center">
+        <div className="mt-5 pv-3">
           <h3
             className="mt-3"
             dangerouslySetInnerHTML={{

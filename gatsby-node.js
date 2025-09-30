@@ -280,9 +280,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 };
 
-// exports.onPostBuild = async ({ graphql }) => {
-//   fs.writeFileSync(
-//     path.join(__dirname, "public/search-index.json"),
-//     JSON.stringify(SEARCH_CODES)
-//   );
-// };
+exports.onPostBuild = async ({ graphql }) => {
+  fs.writeFileSync(
+    path.join(__dirname, "public/search-index.json"),
+    JSON.stringify(Array.from(SEARCH_CODES))
+  );
+};

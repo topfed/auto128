@@ -8,11 +8,7 @@ const Header = () => {
   return (
     <header>
       <div className="container d-flex justify-between items-center">
-        <label
-          htmlFor="menu-toggle"
-          className="mobile-only"
-          aria-label={options?.menuLabel}
-        >
+        <label htmlFor="menu-toggle" aria-label={options?.menuLabel}>
           <Svg name="search" width="24px" height="24px" />
         </label>
         <a href="/" aria-label={options?.logoLabel}>
@@ -28,10 +24,10 @@ const Header = () => {
             type="text"
             id="searchInput"
             placeholder={options?.searchTitle}
-            className="mobile-only w-100 mb-2"
+            className="w-100 mb-2 w-max m-c"
           />
-          <ul id="searchResults"></ul>
-          <ul id="menu">
+          <ul id="searchResults w-max"></ul>
+          <ul id="menu" className="w-max m-c">
             {options?.nav?.map((e, i) => {
               return (
                 <li key={i}>
@@ -48,7 +44,7 @@ const Header = () => {
         </nav>
         <label
           htmlFor="menu-toggle"
-          className="hb mobile-only"
+          className="hb"
           id="hamburgMenu"
           aria-label={options?.menuLabel}
         >

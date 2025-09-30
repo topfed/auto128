@@ -1,5 +1,4 @@
 import React from "react";
-import { withPrefix } from "gatsby";
 
 export default function HTML(props) {
   const isDev = process.env.NODE_ENV === "development";
@@ -20,11 +19,12 @@ export default function HTML(props) {
         ) : (
           <script
             dangerouslySetInnerHTML={{
-              __html: ``,
+              __html: `
+              document.addEventListener("DOMContentLoaded",()=>{let i=[],s=!1,t=document.getElementById("searchInput"),l=document.getElementById("searchResults"),m=document.getElementById("menu");if(!t||!l||!m)return;t.addEventListener("focus",()=>{if(s)return;fetch("/search-index.json").then(r=>r.json()).then(d=>{i=d,s=!0})});t.addEventListener("input",e=>{if(!s)return;const q=e.target.value.toLowerCase();l.innerHTML="";const r=i.filter(x=>x.toLowerCase().includes(q));m.style.display=q&&r.length?"none":"",l.style.display=q&&r.length?"":"none",r.slice(0,10).forEach(x=>{const li=document.createElement("li"),a=document.createElement("a");a.href="/"+x+"/",a.textContent=x,li.appendChild(a),l.appendChild(li)})})});
+          `,
             }}
           />
         )}
-        {isDev && <script src={withPrefix("/main.js")} />}
       </body>
     </html>
   );

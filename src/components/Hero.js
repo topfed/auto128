@@ -1,7 +1,7 @@
 import React from "react";
 import { useGlobal } from "../data/useContext";
 import Image from "./Sections/Image";
-import { formatBrandName } from "../data/functions";
+import { formatBrandName, slugify } from "../data/functions";
 
 const Hero = () => {
   const { settings, context, pages } = useGlobal();
@@ -12,6 +12,7 @@ const Hero = () => {
   const brandData = {};
   const modelData = {};
   const codeData = {};
+  let brandImages = [];
   let displayButton = false;
   let topImage = false;
   if (type === "index") {
@@ -38,7 +39,6 @@ const Hero = () => {
       ?.replace("##", formatBrandName(context?.name));
     topImage = context?.brand;
   }
-
   if (type === "code") {
     codeData.titleHero = settings["code"][0]?.titleHero?.replace(
       "###",
@@ -51,11 +51,49 @@ const Hero = () => {
     } else {
       codeData.subTitleHero = settings["code"][0]?.subTitleHeroNo;
     }
+    const brandPublic = settings?.brandListType0?.map((e) => e?.name);
+    brandImages = context?.manufacture
+      ?.filter((e) => brandPublic.includes(slugify(e)))
+      ?.map((e) => slugify(e));
+    console.log(brandImages);
   }
 
   return (
     <section className="hero d-flex justify-center">
       <div className="wrap">
+        {brandImages?.length > 0 && (
+          <div className="d-flex justify-center mb-3 fade-in delay-0 gap-3">
+            {brandImages?.map((e, i) => {
+              return (
+                <Image
+                  data={{
+                    src: `/white/${e}.svg`,
+                    width:
+                      brandImages?.length === 1
+                        ? "80"
+                        : brandImages?.length === 2
+                        ? "60px"
+                        : brandImages?.length > 3
+                        ? "40px"
+                        : "30px",
+                    height:
+                      brandImages?.length === 1
+                        ? "80"
+                        : brandImages?.length === 2
+                        ? "60px"
+                        : brandImages?.length > 3
+                        ? "40px"
+                        : "30px",
+                    alt: `${e}`,
+                    loading: "eager",
+                    fetchpriority: "async",
+                    local: true,
+                  }}
+                />
+              );
+            })}
+          </div>
+        )}
         {topImage && (
           <div className="d-flex justify-center mb-3 fade-in delay-0">
             <Image
