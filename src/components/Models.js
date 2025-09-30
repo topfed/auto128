@@ -77,8 +77,6 @@ const Models = () => {
       })
       ?.filter((e) => e)
       ?.sort((a, b) => a.name.localeCompare(b.name));
-    console.log(context);
-    console.log(settings);
   }
   if (list?.length === 0) return null;
   return (

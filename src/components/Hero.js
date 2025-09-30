@@ -37,7 +37,6 @@ const Hero = () => {
       ?.replace("###", formatBrandName(context?.brand))
       ?.replace("##", formatBrandName(context?.name));
     topImage = context?.brand;
-    console.log(context);
   }
 
   if (type === "code") {
