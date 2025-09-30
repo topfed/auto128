@@ -251,8 +251,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     let ref = db
       .collection("A_oem")
       .where("rapid", "==", 4)
-      .orderBy("update", "desc")
-      .limit(100);
+      .orderBy("update", "desc");
     const docs = await fetchAllBatches(ref, 300);
     let c3 = 0;
     for (const d of docs) {

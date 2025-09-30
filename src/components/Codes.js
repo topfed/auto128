@@ -75,7 +75,7 @@ const Codes = () => {
           {list?.map((e, i) => {
             return (
               <a className="btx-no" key={i} href={`/${e}/`}>
-                <span className="code text-14">{e}</span>
+                <span className="text-14">{e}</span>
               </a>
             );
           })}

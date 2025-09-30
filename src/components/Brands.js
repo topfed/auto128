@@ -10,25 +10,38 @@ const Brands = () => {
   );
   let brands = settings?.brandListType0;
   let group = 0;
+  let contentBasic = {};
   if (context?.type === "brand") {
     group = brands?.filter((e) => e.name === context?.name)[0].group;
     brands = brands?.filter(
       (e) => e.name !== context?.name && e.group === group
     );
+    contentBasic.title = context?.brand;
+    contentBasic.shortTitle = options?.subTitle;
+    contentBasic.content = options?.content
+      ?.replace("###", formatBrandName(context?.name))
+      ?.replace("###", formatBrandName(context?.name));
   }
   if (context?.type === "model") {
     group = brands?.filter((e) => e.name === context?.brand)[0].group;
     brands = brands?.filter(
       (e) => e.name !== context?.name && e.group === group
     );
+    contentBasic.title = context?.brand;
+    contentBasic.shortTitle = options?.subTitle;
+    contentBasic.content = options?.content
+      ?.replace("###", formatBrandName(context?.brand + " " + context?.name))
+      ?.replace("###", formatBrandName(context?.brand + " " + context?.name));
   }
   if (context?.type === "code") {
     let manufacture = context?.manufacture?.map((e, i) => slugify(e));
     group = brands?.filter((e) => manufacture.includes(e?.name))[0]?.group;
-    console.log(group);
     brands = brands?.filter(
       (e) => e.name !== context?.name && e.group === group
     );
+    contentBasic.title = context?.brand;
+    contentBasic.shortTitle = options?.subTitle;
+    contentBasic.content = options?.content;
   }
   if (brands?.length === 0) return null;
   return (
@@ -47,12 +60,7 @@ const Brands = () => {
           {options?.title?.replace("###", formatBrandName(context?.brand))}
         </h2>
         {options?.content && (
-          <p className="text-center">
-            {options?.content
-              ?.replace("###", formatBrandName(context?.name))
-              ?.replace("###", formatBrandName(context?.name))
-              ?.replace("###", formatBrandName(context?.name))}
-          </p>
+          <p className="text-center">{contentBasic?.content}</p>
         )}
         <div className="col-12 clip">
           <input id="t" type="checkbox" />

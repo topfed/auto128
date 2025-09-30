@@ -7,7 +7,9 @@ const ForSellers = () => {
     (e) => e?.id === "ForSellers"
   );
   return (
-    <section className="bg-light">
+    <section
+      className={`${context?.type === "code" ? "bg-white" : "bg-light"}`}
+    >
       <div className="container cont-space">
         <p className="subtitle text-center">{options?.subTitle}</p>
         <h2 className="text-center">{options?.title}</h2>

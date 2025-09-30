@@ -767,8 +767,7 @@ a.active {
 }
 .btx-no {
   border: var(--bs);
-  font-size: 12px;
-  padding: 4px 12px;
+  padding: 6px 16px;
   cursor: pointer;
   border-radius: 4px;
   text-decoration: none;
@@ -945,7 +944,7 @@ footer a:hover {
   position: relative;
   transition: max-height 0.3s ease;
 }
-.clip .contentClip::after {
+.clip .endGrad::after {
   content: "";
   position: absolute;
   left: 0;
@@ -953,6 +952,15 @@ footer a:hover {
   bottom: 0;
   height: 28px;
   background: linear-gradient(to bottom, transparent, #fff);
+}
+.clip .endGrad2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28px;
+  background: linear-gradient(to bottom, transparent, #f8f8f8);
 }
 .clip input:checked ~ .contentClip {
   max-height: fit-content;

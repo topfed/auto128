@@ -10,7 +10,6 @@ const Seo = ({ data, context }) => {
   const language = process.env.LANGUAGE;
   const logoUrl = `${process.env.PUBLIC_URL}/logo.png`;
   let pageSchema = null;
-  let placeData = {};
   const brandData = {};
   const modelData = {};
   const codeData = {};
@@ -45,34 +44,6 @@ const Seo = ({ data, context }) => {
       ?.replace("##", formatManufacturersList(context?.manufacture));
   }
 
-  if (type === "place") {
-    const optionsPlace = (data?.settings[context?.type] || [])?.find(
-      (e) => e?.id === "Places"
-    );
-    placeData.keyword = data?.slugData?.find(
-      (e) => e?.slug === context?.keyword
-    );
-    placeData.city = data?.slugData?.find((e) => e?.slug === context?.city);
-    placeData.category = data?.slugData?.find(
-      (e) => e?.slug === placeData?.keyword?.category
-    );
-    placeData.title = optionsPlace?.titleSEO
-      ?.replace("####", placeData?.keyword?.name)
-      ?.replace("###", placeData?.city?.name)
-      ?.replace("##", context?.places?.length)
-      ?.replace(
-        "#",
-        new Date(context?.update).toLocaleString("en-GB", {
-          month: "long",
-          year: "numeric",
-        })
-      );
-    placeData.description = optionsPlace?.descSEO
-      ?.replace("###", placeData?.keyword?.name?.toLowerCase())
-      ?.replace("##", placeData?.city?.name)
-      ?.replace("#", placeData?.keyword?.single?.toLowerCase());
-  }
-
   const title =
     codeData.titleSEO ||
     modelData.titleSEO ||
@@ -84,37 +55,57 @@ const Seo = ({ data, context }) => {
     brandData.descSEO ||
     slugData?.seoDesc;
 
-  // const shortTitle = slugData?.title.replace(/<[^>]*>/g, "");
-  // const publisher = {
-  //   "@type": "Organization",
-  //   name: siteName,
-  //   url: ogUrl,
-  //   logo: {
-  //     "@type": "ImageObject",
-  //     url: logoUrl,
-  //     width: 512,
-  //     height: 512,
-  //   },
-  //   contactPoint: {
-  //     "@type": "ContactPoint",
-  //     telephone: "+44-20-3807-8434",
-  //     email: "info@auto128.uk",
-  //     contactType: "Customer Support",
-  //     areaServed: "GB",
-  //     availableLanguage: ["English"],
-  //   },
-  // };
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.auto128.com/#org",
+        name: "Auto128",
+        url: "https://www.auto128.com/",
+        logo: "https://www.auto128.com/static/logo.png",
+        hasMerchantReturnPolicy: {
+          "@type": "MerchantReturnPolicy",
+          "@id": "http://localhost:8000/refunds-and-returns/#policy",
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.auto128.com/#website",
+        url: "https://www.auto128.com/",
+        name: "Auto128",
+        publisher: { "@id": "https://www.auto128.com/#org" },
+        inLanguage: "en",
+        potentialAction: {
+          "@type": "RegisterAction",
+          name: "Become a Seller",
+          target: "https://www.auto128.com/become-a-seller/",
+        },
+      },
+      {
+        "@type": "MerchantReturnPolicy",
+        "@id": "http://localhost:8000/refunds-and-returns/#returns",
+        name: "Refunds and Returns",
+        returnPolicyCategory:
+          "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 14,
+        returnFees: "https://schema.org/ReturnShippingFees",
+        returnMethod: "https://schema.org/ReturnByMail",
+        applicableCountry: "EUR",
+      },
+    ],
+  };
 
-  // if (type === "index") {
-  //   pageSchema = {
-  //     "@context": "https://schema.org",
-  //     "@type": "WebSite",
-  //     name: siteName,
-  //     url: ogUrl,
-  //     publisher: publisher,
-  //     inLanguage: language,
-  //   };
-  // }
+  if (type === "index") {
+    // pageSchema = {
+    //   "@context": "https://schema.org",
+    //   "@type": "WebSite",
+    //   name: siteName,
+    //   url: ogUrl,
+    //   publisher: publisher,
+    //   inLanguage: language,
+    // };
+  }
   // if (type === "category") {
   //   ogUrl = `${ogUrl}/${context?.slug}/`;
   //   pageSchema = {
@@ -366,9 +357,8 @@ const Seo = ({ data, context }) => {
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={siteName} />
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-      {pageSchema && (
-        <script type="application/ld+json">{JSON.stringify(pageSchema)}</script>
-      )}
+
+      <script type="application/ld+json">{JSON.stringify(schemaData)}</script>
     </>
   );
 };
