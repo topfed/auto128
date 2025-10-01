@@ -28,8 +28,8 @@ const Models = () => {
       ?.replace("###", formatBrandName(context?.name));
     list = settings?.brandListType0
       ?.filter((e) => e?.name === context?.name)[0]
-      ?.models?.slice() // make a shallow copy so you don’t mutate original
-      ?.sort((a, b) => a.localeCompare(b));
+      ?.models?.map((e) => e?.name)
+      .slice();
     brandSlug = context?.name;
   }
   if (context?.type === "model") {
@@ -41,9 +41,12 @@ const Models = () => {
     content = options?.content
       ?.replace("###", formatBrandName(context?.brand))
       ?.replace("###", formatBrandName(context?.brand));
+    let body = context?.modelDetails?.bodyType || "";
+    console.log(settings?.brandListType0);
     list = settings?.brandListType0
       ?.filter((e) => e?.name === context?.brand)[0]
-      ?.models?.filter((e) => slugify(e) !== slugify(context?.name));
+      ?.models?.filter((e) => e?.bodyType === body)
+      ?.map((e) => e?.name);
     brandSlug = context?.brand;
   }
   if (context?.type === "code") {
@@ -56,7 +59,6 @@ const Models = () => {
       ?.replace("###", context?.code)
       ?.replace("###", context?.code)
       ?.replace("##", formatManufacturersList(context?.manufacture));
-
     list = context?.cars
       ?.map((e) => {
         let compatible = e.split("###");
@@ -75,8 +77,7 @@ const Models = () => {
           slug: slug,
         };
       })
-      ?.filter((e) => e)
-      ?.sort((a, b) => a.name.localeCompare(b.name));
+      ?.filter((e) => e);
   }
   if (list?.length === 0) return null;
   return (
@@ -88,11 +89,10 @@ const Models = () => {
       }
     >
       <div className="container cont-space">
-        <p className="subtitle text-center">{shortTitle}</p>
-        <h2 className="text-center">{title}</h2>
+        <p className="subtitle">{shortTitle}</p>
+        <h2>{title}</h2>
         {content && (
           <p
-            className="text-center"
             dangerouslySetInnerHTML={{
               __html: content,
             }}
@@ -108,8 +108,10 @@ const Models = () => {
             } mb-3 mt-5 ${context?.type === "code" ? `` : `gap-2`} ${
               context?.type === "code" ? `` : `a-flex-2`
             } ${list?.length > 20 ? `contentClip` : ``} ${
-              context?.type === "model" ? `endGrad2` : ``
-            } ${context?.type === "code" ? `endGrad2` : ``}`}
+              context?.type === "model" && list?.length > 20 ? `endGrad2` : ``
+            } ${
+              context?.type === "code" && list?.length > 20 ? `endGrad2` : ``
+            }`}
           >
             {list?.map((e, i) => {
               return (

@@ -55,15 +55,11 @@ const Brands = () => {
       }`}
     >
       <div className="container cont-space">
-        <p className="subtitle text-center">{options?.subTitle}</p>
-        <h2 className="text-center">
+        <p className="subtitle">{options?.subTitle}</p>
+        <h2>
           {options?.title?.replace("###", formatBrandName(context?.brand))}
         </h2>
-        {options?.content && (
-          <p className="text-center">
-            {contentBasic?.content || options?.content}
-          </p>
-        )}
+        {options?.content && <p>{contentBasic?.content || options?.content}</p>}
         <div className="col-12 clip">
           <input id="t" type="checkbox" />
           <div

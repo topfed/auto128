@@ -11,6 +11,7 @@ const Codes = () => {
   let title = "";
   let shortTitle = "";
   let content = "";
+  let content2 = "";
   let list = [];
 
   if (context?.type === "index") {
@@ -31,10 +32,12 @@ const Codes = () => {
       ?.codes?.slice(-50);
   }
   if (context?.type === "model") {
+    console.log(context);
     title = options?.title
       ?.replace("###", formatBrandName(context?.brand))
       .replace("##", formatBrandName(context?.name));
     shortTitle = options?.subTitle;
+    content2 = context?.content;
     content = options?.content
       ?.replace("###", formatBrandName(context?.brand))
       ?.replace("###", formatBrandName(context?.brand))
@@ -67,9 +70,18 @@ const Codes = () => {
       className={`${context?.type !== "code" ? "bg-white" : "bg-light"}`}
     >
       <div className="container cont-space">
-        <p className="subtitle text-center">{shortTitle}</p>
-        <h2 className="text-center">{title}</h2>
-        {options?.content && <p className="text-center">{content}</p>}
+        <p className="subtitle">{shortTitle}</p>
+        <h2>{title}</h2>
+
+        {context?.content && (
+          <p
+            className="mt-3"
+            dangerouslySetInnerHTML={{
+              __html: content2 || "",
+            }}
+          />
+        )}
+        {options?.content && <p>{content}</p>}
 
         <div className="d-flex flex-wrap mt-5 mb-3 gap-2 a-flex pr-2 search">
           {list?.map((e, i) => {

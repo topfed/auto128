@@ -65,7 +65,7 @@ exports.sourceNodes = async ({
       .collection("A_oem")
       .where("rapid", "==", 4)
       .orderBy("update", "desc")
-      .limit(200);
+      .limit(100);
 
     const snap = await ref.get();
     const arr = [];
@@ -75,14 +75,6 @@ exports.sourceNodes = async ({
       const code = d.id || data.code || "";
       if (code) arr.push(code);
     });
-
-    // // Fisher–Yates shuffle
-    // for (let i = arr.length - 1; i > 0; i--) {
-    //   const j = Math.floor(Math.random() * (i + 1));
-    //   const temp = arr[i];
-    //   arr[i] = arr[j];
-    //   arr[j] = temp;
-    // }
 
     return arr;
   }
@@ -101,16 +93,13 @@ exports.sourceNodes = async ({
       const models = Array.isArray(data.models) ? data.models : [];
       const codes = Array.isArray(data.codes) ? data.codes : [];
 
-      const uniqueModels = Array.from(
-        new Set(models.filter(Boolean).map(String))
-      );
       const uniqueCodes = Array.from(
         new Set(codes.filter(Boolean).map(String))
       );
-      if (uniqueModels?.length > 0) {
+      if (models?.length > 0) {
         brands.push({
           name,
-          models: uniqueModels,
+          models: models,
           codes: uniqueCodes,
           group: data?.group,
         });
@@ -227,6 +216,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       const data = d.data() || {};
       const name = String(data.name || "").trim();
       const brand = String(data.brand || "").trim();
+      const content = String(data.content || "").trim();
       if (!brand || !name) continue;
       const brandSlug = slugify(brand);
       const modelSlug = slugify(name);
@@ -238,6 +228,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             type: "model",
             brand,
             name,
+            content,
+            modelDetails: data?.modelDetails || null,
             codes: Array.isArray(data.codes) ? data.codes : [],
           },
         });
